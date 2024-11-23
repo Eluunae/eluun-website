@@ -1,40 +1,97 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma page de liens</title>
+    <title>Eluun - Official</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Bienvenue sur mon site !</h1>
-    </header>
-    
-    <section class="links">
-        <h2>Liens importants :</h2>
-        <ul>
-            <li><a href="https://www.spotify.com" target="_blank">Spotify</a></li>
-            <li><a href="https://www.soundcloud.com" target="_blank">SoundCloud</a></li>
-            <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
-        </ul>
-    </section>
+    <!-- Main container -->
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile">
+            <img src="profile.jpg" alt="Eluun" class="profile-pic">
+            <h1 class="artist-name">Eluun</h1>
+        </div>
 
-    <section class="subscribe">
-        <h2>Inscrivez-vous pour recevoir des infos par SMS :</h2>
-        <form id="smsForm">
-            <input type="tel" id="phone" placeholder="Entrez votre numéro de téléphone" required>
-            <button type="submit">S'inscrire</button>
-        </form>
-    </section>
+        <!-- Subscription Form -->
+        <div class="form-container">
+            <h2>Subscribe to get exclusive updates</h2>
+            <form id="phone-form">
+                <label for="phone">Phone Number *</label>
+                <input type="text" id="phone" name="phone" placeholder="Include your number with your country's name, for example +33 6 00 00 00 00" required>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="consent" required>
+                    <label for="consent">I want to subscribe to your SMS list.</label>
+                </div>
 
-    <!-- Ajoutez ce lien dans la section appropriée sur index.html -->
-    <section class="navigate">
-        <h2>Découvrez mes morceaux et téléchargez-les gratuitement :</h2>
-        <a href="download.html" class="button-link">Télécharger ma musique</a>
-    </section>
+                <button type="submit" id="submit-btn" disabled>Keep Informed</button>
+            </form>
+        </div>
 
+        <!-- Button Section -->
+        <div class="button-container">
+            <div class="button-row">
+                <button onclick="window.location.href='booking.html'">Booking EU/UK</button>
+                <button onclick="window.location.href='patreon.html'">Patreon (support)</button>
+                <button onclick="window.location.href='https://www.instagram.com'">Instagram</button>
+                <button onclick="window.location.href='https://soundcloud.com'">Soundcloud</button>
+                <button onclick="window.location.href='https://spotify.com'">Spotify</button>
+                <button onclick="window.location.href='https://music.apple.com'">Apple Music</button>
+                <button onclick="window.location.href='https://music.amazon.com'">Amazon Music</button>
+                <button onclick="window.location.href='download.html'">Free Download my Music</button>
+            </div>
+            <div class="button-row">
+                <button onclick="window.location.href='soulchild.html'">Soulchild EP</button>
+                <button onclick="window.location.href='snowfall.html'">Snowfall</button>
+                <button onclick="window.location.href='icarus.html'">Icarus EP</button>
+                <button onclick="window.location.href='unseen.html'">Unseen</button>
+                <button onclick="window.location.href='tarantula.html'">Tarantula Bootleg</button>
+                <button onclick="window.location.href='different_tomorrow.html'">Different Tomorrow remix</button>
+            </div>
+        </div>
+    </div>
 
-    <script src="scripts.js"></script>
+    <!-- Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p>Please enter your phone number in the international format, for example: +33 6 00 00 00 00.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Enable form submission only if all conditions are met
+        const phoneInput = document.getElementById('phone');
+        const consentCheckbox = document.getElementById('consent');
+        const submitBtn = document.getElementById('submit-btn');
+
+        phoneInput.addEventListener('input', validateForm);
+        consentCheckbox.addEventListener('change', validateForm);
+
+        function validateForm() {
+            const phoneValue = phoneInput.value;
+            const isPhoneValid = phoneValue.startsWith('+') && phoneValue.length > 5;
+            if (isPhoneValid && consentCheckbox.checked) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        // Popup display if phone number is not international
+        document.getElementById('phone-form').addEventListener('submit', function(event) {
+            if (!phoneInput.value.startsWith('+')) {
+                event.preventDefault();
+                document.getElementById('popup').style.display = 'block';
+            }
+        });
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
