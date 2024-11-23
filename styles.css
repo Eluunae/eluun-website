@@ -77,23 +77,26 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Styles généraux pour les boutons */
+/* Conteneur global des boutons */
 .button-container {
     display: flex;
-    flex-direction: column;
-    gap: 20px; /* Espacement entre les rangées */
-    margin-top: 40px;
+    justify-content: center; /* Centre horizontalement les colonnes */
+    gap: 40px; /* Espacement entre les colonnes */
+    margin-top: 40px; /* Espacement en haut */
     padding: 0 20px; /* Ajoute de l'espace à gauche et à droite */
+  }
+  
+  /* Chaque colonne de boutons */
+  .button-column {
+    display: flex;
+    flex-direction: column; /* Colonne verticale */
+    gap: 10px; /* Espacement entre les boutons dans la même colonne */
+    width: 100%; /* Occupe toute la largeur disponible */
+    max-width: 300px; /* Limite la largeur des colonnes */
     text-align: center;
   }
   
-  .button-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Crée deux colonnes égales */
-    gap: 10px; /* Espacement entre les boutons */
-    justify-items: center; /* Centre les boutons dans chaque cellule */
-  }
-  
+  /* Styles pour les boutons */
   .btn {
     background-color: #333;
     color: white;
@@ -103,7 +106,7 @@ button:disabled {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
-    width: 100%; /* Les boutons occupent toute la largeur de leur cellule */
+    width: 100%; /* Les boutons occupent toute la largeur de leur colonne */
     max-width: 250px; /* Limite la largeur des boutons */
     text-align: center;
     box-sizing: border-box; /* Pour s'assurer que padding et largeur ne se cumulent pas */
@@ -113,29 +116,21 @@ button:disabled {
     background-color: #444;
   }
   
-  /* Mise en deux colonnes sur les grands écrans */
-  @media (min-width: 768px) {
-    .button-row {
-      grid-template-columns: repeat(4, 1fr); /* Crée 4 colonnes sur les grands écrans */
-      gap: 20px; /* Espacement entre les boutons */
-    }
-  
-    .btn {
-      max-width: 250px; /* Limite la largeur des boutons */
-    }
-  }
-  
-  /* Pour les petits écrans (mobile), les boutons seront en deux colonnes mais plus petits */
+  /* Responsivité : Pour les petits écrans */
   @media (max-width: 767px) {
-    .button-row {
-      grid-template-columns: repeat(2, 1fr); /* Deux colonnes sur petits écrans */
+    .button-container {
+      flex-direction: column; /* Met les colonnes en empilement sur les petits écrans */
+      gap: 20px; /* Espacement vertical entre les conteneurs */
+    }
+  
+    .button-column {
+      width: 100%;
+      max-width: 100%; /* Les colonnes prennent toute la largeur disponible */
     }
   
     .btn {
-      width: 100%; /* Les boutons occupent toute la largeur de leur cellule */
-      max-width: 200px; /* Limite la largeur des boutons sur les petits écrans */
-      font-size: 14px; /* Taille de police plus petite pour les petits écrans */
-      padding: 10px 15px; /* Réduit la taille des boutons */
+      font-size: 14px; /* Taille plus petite pour les petits écrans */
+      padding: 10px 15px; /* Boutons plus petits */
     }
   }
   
