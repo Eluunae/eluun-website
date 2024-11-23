@@ -73,22 +73,12 @@ button:hover {
 }
 
 button:disabled {
-    background-color: #555;
+    background-color: #555; 
     cursor: not-allowed;
 }
 
-/* Centrer le conteneur global verticalement et horizontalement */
-body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #111; /* Fond sombre */
-  }
-  
-  /* Conteneur global des boutons */
-  .button-container {
+/* Conteneur global des boutons */
+.button-container {
     display: flex;
     justify-content: center; /* Centre horizontalement les colonnes */
     gap: 40px; /* Espacement entre les colonnes */
@@ -145,7 +135,6 @@ body, html {
       padding: 10px 15px; /* Boutons plus petits */
     }
   }
-  
   
   
   
