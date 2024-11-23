@@ -77,67 +77,61 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Style pour la container des boutons */
-.buttons-container {
+/* Styles généraux pour les boutons */
+.button-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px; /* Espace entre les rangées */
+    gap: 20px; /* Espacement entre les lignes de boutons */
+    margin-top: 40px;
+    text-align: center;
   }
   
-  /* Style pour chaque rangée de boutons */
   .button-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Quatre colonnes pour les grands écrans */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 10px; /* Espacement entre les boutons */
-    width: 80%; /* Limiter la largeur */
-    justify-items: center; /* Centrer les boutons */
   }
   
-  /* Style pour chaque bouton */
-  .link-button {
-    background-color: #333; /* Fond sombre */
-    color: #fff; /* Texte en blanc */
+  .btn {
+    background-color: #333;
+    color: white;
+    padding: 12px 20px;
     border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 14px;
+    border-radius: 10px;
+    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 180px; /* Largeur des boutons */
+    text-align: center;
   }
   
-  /* Effet au survol des boutons */
-  .link-button:hover {
-    background-color: #555;
+  .btn:hover {
+    background-color: #444;
   }
   
-  /* Styles pour les écrans mobiles et tablettes */
-  @media (max-width: 768px) {
+  /* Mise en deux colonnes sur les grands écrans */
+  @media (min-width: 768px) {
     .button-row {
-      grid-template-columns: repeat(2, 1fr); /* Deux colonnes sur les petits écrans */
-      width: 90%; /* Plus large sur les petits écrans */
+      justify-content: space-between;
     }
-  
-    /* Reduire la taille des boutons sur mobile */
-    .link-button {
-      padding: 8px 15px;
-      font-size: 12px;
+    .btn {
+      width: 45%; /* Largeur des boutons pour écrans plus grands (2 colonnes) */
     }
   }
   
-  /* Styles pour les très petits écrans (ex: téléphones) */
-  @media (max-width: 480px) {
+  /* Pour les petits écrans, les boutons sont plus petits et en 2 colonnes */
+  @media (max-width: 767px) {
     .button-row {
-      grid-template-columns: 1fr; /* Une colonne sur les très petits écrans */
+      justify-content: center;
     }
-  
-    /* Réduire encore la taille des boutons */
-    .link-button {
-      padding: 6px 12px;
-      font-size: 11px;
+    .btn {
+      width: 45%; /* Les boutons occupent 45% de la largeur de l'écran */
+      font-size: 14px; /* Réduit la taille de la police pour les petits écrans */
+      padding: 10px 15px; /* Réduit la taille des boutons */
     }
   }
+  
   
 
 /* Popup Styles */
