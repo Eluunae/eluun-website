@@ -84,7 +84,7 @@ button:disabled {
     gap: 20px; /* Espacement entre les lignes de boutons */
     margin-top: 40px;
     text-align: center;
-    padding: 0 20px; /* Ajoute de l'espace (padding) à gauche et à droite de l'écran */
+    padding: 0 20px; /* Ajoute de l'espace à gauche et à droite des boutons */
   }
   
   .button-row {
@@ -104,9 +104,8 @@ button:disabled {
     cursor: pointer;
     transition: background-color 0.3s;
     width: 180px; /* Largeur des boutons */
-    max-width: 250px; /* Limite la largeur maximum des boutons */
+    max-width: 250px; /* Largeur maximale des boutons */
     text-align: center;
-    margin: 0 10px; /* Marge à gauche et à droite de chaque bouton */
   }
   
   .btn:hover {
@@ -120,7 +119,7 @@ button:disabled {
     }
     .btn {
       width: 45%; /* Largeur des boutons pour écrans plus grands (2 colonnes) */
-      max-width: 250px; /* S'assurer que la largeur des boutons est limitée */
+      max-width: 250px; /* Limite la largeur des boutons sur les écrans plus grands */
     }
   }
   
@@ -131,11 +130,12 @@ button:disabled {
     }
     .btn {
       width: 45%; /* Les boutons occupent 45% de la largeur de l'écran */
-      max-width: 200px; /* Limite la largeur des boutons sur petits écrans */
+      max-width: 200px; /* Limite la largeur des boutons sur les petits écrans */
       font-size: 14px; /* Réduit la taille de la police pour les petits écrans */
       padding: 10px 15px; /* Réduit la taille des boutons */
     }
   }
+  
   
   
 
