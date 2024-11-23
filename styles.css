@@ -77,13 +77,25 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Conteneur global des boutons */
-.button-container {
+/* Centrer le conteneur global verticalement et horizontalement */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #111; /* Fond sombre */
+  }
+  
+  /* Conteneur global des boutons */
+  .button-container {
     display: flex;
     justify-content: center; /* Centre horizontalement les colonnes */
     gap: 40px; /* Espacement entre les colonnes */
     margin-top: 40px; /* Espacement en haut */
     padding: 0 20px; /* Ajoute de l'espace à gauche et à droite */
+    width: 100%;
+    max-width: 900px; /* Limite la largeur totale des colonnes */
   }
   
   /* Chaque colonne de boutons */
@@ -91,7 +103,7 @@ button:disabled {
     display: flex;
     flex-direction: column; /* Colonne verticale */
     gap: 10px; /* Espacement entre les boutons dans la même colonne */
-    width: 100%; /* Occupe toute la largeur disponible */
+    width: 100%; /* Les colonnes prennent toute la largeur disponible */
     max-width: 300px; /* Limite la largeur des colonnes */
     text-align: center;
   }
@@ -133,6 +145,7 @@ button:disabled {
       padding: 10px 15px; /* Boutons plus petits */
     }
   }
+  
   
   
   
