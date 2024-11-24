@@ -15,18 +15,3 @@ document.getElementById("downloadButton").addEventListener("click", function() {
     alert("Téléchargement en attente de validation via Spotify/SoundCloud.");
     // Vous pourrez ajouter la logique API plus tard ici
 });
-/* Style du lien pour le bouton */
-.button-link {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.button-link:hover {
-    background-color: #45a049;
-}
