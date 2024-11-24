@@ -177,7 +177,7 @@ button:disabled {
   /* Ajuster la taille de l'image pour qu'elle ait la même hauteur que le bouton */
 button .button-icon img {
     height: 100%; /* Prendre toute la hauteur du bouton */
-    width: auto; /* Garder l'aspect de l'image */
+    width: 20px; /* Garder l'aspect de l'image */
     object-fit: contain; /* Maintenir l'intégrité de l'image sans la déformer */
   }
   
