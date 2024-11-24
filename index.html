@@ -33,6 +33,7 @@
 
         <!-- Button Section -->
         <!-- Début du bloc des boutons -->
+
 <!-- Section des boutons -->
 <section class="button-section">
 <!-- Première colonne -->
@@ -112,15 +113,19 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
+
+
     <script>
         // Enable form submission only if all conditions are met
         const phoneInput = document.getElementById('phone');
         const consentCheckbox = document.getElementById('consent');
         const submitBtn = document.getElementById('submit-btn');
-
+        const form = document.getElementById('phone-form'); // Cible le formulaire
+    
         phoneInput.addEventListener('input', validateForm);
         consentCheckbox.addEventListener('change', validateForm);
-
+    
         function validateForm() {
             const phoneValue = phoneInput.value;
             const isPhoneValid = phoneValue.startsWith('+') && phoneValue.length > 5;
@@ -130,15 +135,43 @@
                 submitBtn.disabled = true;
             }
         }
-
+    
         // Popup display if phone number is not international
-        document.getElementById('phone-form').addEventListener('submit', function(event) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêche l'envoi traditionnel du formulaire
             if (!phoneInput.value.startsWith('+')) {
-                event.preventDefault();
                 document.getElementById('popup').style.display = 'block';
+                return; // Si le téléphone n'est pas dans le bon format, ne pas envoyer
             }
+    
+            // Si tout est valide, envoyer les données à la fonction Netlify
+            const phone = phoneInput.value;
+            const consent = consentCheckbox.checked;
+    
+            // Envoyer la requête POST à la fonction Netlify
+            fetch('/.netlify/functions/add-contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phone: phone,
+                    consent: consent
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Gérer la réponse de la fonction
+                console.log('Success:', data);
+                alert('Thank you for subscribing!');
+            })
+            .catch((error) => {
+                // Gérer les erreurs
+                console.error('Error:', error);
+                alert('There was an error with your submission. Please try again later.');
+            });
         });
-
+    
         function closePopup() {
             document.getElementById('popup').style.display = 'none';
         }
