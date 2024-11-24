@@ -77,21 +77,28 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Styles pour la section des boutons */
+/* Section des boutons */
 .button-section {
     display: flex;
     justify-content: center;
     gap: 50px; /* Espacement entre les colonnes */
     padding: 50px 20px;
+    align-items: center; /* Centre verticalement les colonnes */
+    height: 100vh; /* Prend toute la hauteur de la page */
   }
   
   /* Chaque colonne */
   .column {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: center; /* Centre verticalement les boutons */
+    align-items: flex-end; /* Par défaut, les boutons sont alignés à droite */
     gap: 10px; /* Espacement entre les boutons */
+  }
+  
+  /* Deuxième colonne alignée à gauche */
+  .column:nth-child(2) {
+    align-items: flex-start; /* Boutons alignés à gauche */
   }
   
   /* Boutons */
@@ -129,6 +136,7 @@ button:disabled {
       width: auto; /* Les boutons restent adaptés à leur contenu */
     }
   }
+  
   
   
   
