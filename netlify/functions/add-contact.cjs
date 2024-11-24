@@ -1,52 +1,52 @@
-// netlify/functions/add-contact.js
-const fetch = require('node-fetch'); // Vous aurez besoin de `node-fetch` pour faire des requêtes API
-const apiKey = process.env.BREVO_API_KEY; // Utilisez une variable d'environnement pour sécuriser la clé API
-
 exports.handler = async (event) => {
-  // Si ce n'est pas une requête POST, retournez une erreur
-  if (event.httpMethod !== 'POST') {
+  // Import dynamique de node-fetch
+  const fetch = (await import('node-fetch')).default;
+
+  // Parse les données envoyées par le formulaire
+  const body = JSON.parse(event.body);
+  const phone = body.phone;
+  const consent = body.consent;
+
+  console.log('Phone:', phone);
+  console.log('Consent:', consent);
+
+  // Vous pouvez maintenant faire appel à l'API ou effectuer une autre logique
+  try {
+    const response = await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.BREVO_API_KEY}`,  // Assurez-vous que votre clé API est dans .env
+      },
+      body: JSON.stringify({
+        listIds: [5],  // Liste à laquelle ajouter ce contact
+        attributes: {
+          PHONE: phone,
+        },
+      }),
+    });
+
+    const data = await response.json();
+    
+    if (!response.ok) {
+      // Si l'API retourne une erreur
+      return {
+        statusCode: response.status,
+        body: JSON.stringify({ message: 'Failed to add contact', error: data }),
+      };
+    }
+
+    // Si tout va bien
     return {
-      statusCode: 405,
-      body: JSON.stringify({ message: 'Method Not Allowed' })
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Contact added successfully', data }),
     };
-  }
 
-  // Extraire les données envoyées dans le body de la requête
-  const { phone, consent } = JSON.parse(event.body);
-
-  // Vérifiez que les données sont présentes
-  if (!phone || !consent) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ message: 'Phone number and consent are required' })
-    };
-  }
-
-  // Exemple de requête pour ajouter un contact via l'API Brevo
-  const response = await fetch('https://api.brevo.com/v3/contacts', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'api-key': apiKey // Utilisation de la clé API Brevo
-    },
-    body: JSON.stringify({
-      email: '', // Vous pouvez ajouter une adresse email si vous le souhaitez
-      attributes: { PHONE: phone },
-      listIds: [5],/* Liste d'ID à laquelle ajouter ce contact */
-    })
-  });
-
-  // Vérifiez la réponse de l'API de Brevo
-  if (!response.ok) {
+  } catch (error) {
+    console.error('Error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Failed to add contact' })
+      body: JSON.stringify({ message: 'Server error', error }),
     };
   }
-
-  // Répondre avec un succès
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: 'Contact added successfully' })
-  };
 };
