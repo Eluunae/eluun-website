@@ -1,2 +1,3 @@
 [build]
   functions = "netlify/functions"  # Ceci doit pointer vers le bon dossier des fonctions
+  node_version = "14"  # ou "16" selon votre préférence

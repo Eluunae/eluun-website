@@ -1,7 +1,7 @@
-exports.handler = async (event) => {
-  // Import dynamique de node-fetch
-  const fetch = (await import('node-fetch')).default;
+// Importation de node-fetch en version 2, compatible avec CommonJS
+const fetch = require('node-fetch');
 
+exports.handler = async (event) => {
   // Parse les données envoyées par le formulaire
   const body = JSON.parse(event.body);
   const phone = body.phone;
