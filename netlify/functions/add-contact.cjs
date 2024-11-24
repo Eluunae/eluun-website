@@ -32,7 +32,7 @@ exports.handler = async (event) => {
     body: JSON.stringify({
       email: '', // Vous pouvez ajouter une adresse email si vous le souhaitez
       attributes: { PHONE: phone },
-      listIds: [Telephone],/* Liste d'ID à laquelle ajouter ce contact */
+      listIds: [5],/* Liste d'ID à laquelle ajouter ce contact */
     })
   });
 
