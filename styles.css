@@ -113,6 +113,8 @@ button:disabled {
     cursor: pointer;
     width: fit-content; /* S'adapte au texte */
     transition: background-color 0.3s ease;
+    margin: 0; /* Supprime toute marge inutile */
+    box-sizing: border-box; /* Inclure padding dans la largeur et la hauteur */
   }
   
   button:hover {
