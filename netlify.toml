@@ -1,3 +1,13 @@
 [build]
   functions = "netlify/functions"  # Ceci doit pointer vers le bon dossier des fonctions
-  node_version = "14"  # ou "16" selon votre préférence
+  node_version = "14"  
+  
+[[headers]]
+for = "/*"
+[headers.values]
+  Access-Control-Allow-Origin = "*"
+
+[[headers]]
+for = "/OneSignalSDKWorker.js"
+[headers.values]
+  Service-Worker-Allowed = "/"
