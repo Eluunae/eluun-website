@@ -77,6 +77,33 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* Style spécifique pour le bouton "Keep Informed" */
+.form-container #submit-btn {
+    background-color: #444; /* Couleur spécifique */
+    color: white;
+    padding: 12px 30px; /* Ajustement des dimensions */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 20px auto 10px; /* Espacement au-dessus (20px) et en dessous (10px), centré horizontalement */
+    display: block; /* S'assure que le bouton occupe une ligne entière pour le centrage */
+    width: fit-content; /* Largeur ajustée au contenu */
+    transition: background-color 0.3s ease;
+}
+
+/* Style au survol */
+.form-container #submit-btn:hover {
+    background-color: #666;
+}
+
+/* Style désactivé */
+.form-container #submit-btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+
 /* Section des boutons */
 .button-section {
     display: flex;
@@ -91,13 +118,13 @@ button:disabled {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; /* Aligner les boutons en haut de la colonne */
-    align-items: flex-end; /* Alignement horizontal des boutons à gauche */
+    align-items: flex-end; /* Alignement horizontal des boutons à droite */
     gap: 10px; /* Espacement constant de 10px entre les boutons */
 }
   
 /* Deuxième colonne alignée à gauche */
 .column:nth-child(2) {
-    align-items: flex-start; /* Aligner horizontalement les boutons de la première colonne à droite */
+    align-items: flex-start; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
 }
   
   /* Boutons */
