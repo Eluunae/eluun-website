@@ -1,12 +1,30 @@
-// Logique pour la soumission du formulaire (exemple)
+// Logique pour la soumission du formulaire (mise à jour avec l'intégration Netlify Functions)
 document.getElementById("smsForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Empêche la soumission du formulaire
-    
-    let phoneNumber = document.getElementById("phone").value;
-    
-    if (phoneNumber) {
-        alert("Numéro ajouté pour la campagne SMS !");
-        // Ici, vous pourrez ajouter du code pour envoyer le numéro via une API
+
+    const phone = document.getElementById('phone').value;
+    const consent = document.getElementById('consent').checked;
+
+    // Vérifier si le numéro est valide et si le consentement est donné
+    if (consent && phone.startsWith('+')) {
+        fetch('/.netlify/functions/add-contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ phone, consent })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Contact ajouté:', data);
+            alert('Vous vous êtes abonné avec succès!');
+        })
+        .catch(error => {
+            console.error('Erreur lors de l\'ajout du contact:', error);
+            alert('Échec de l\'abonnement. Veuillez réessayer plus tard.');
+        });
+    } else {
+        alert('Veuillez fournir un numéro valide et donner votre consentement pour vous abonner.');
     }
 });
 
