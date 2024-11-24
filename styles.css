@@ -159,6 +159,10 @@ button:disabled {
       width: 100%; /* Prend toute la largeur disponible */
       align-items: center; /* Centre les boutons */
     }
+
+    .column:nth-child(2) {
+        align-items: center; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
+    }
   
     button {
       width: auto; /* Les boutons restent adaptés à leur contenu */
