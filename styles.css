@@ -23,6 +23,11 @@ body {
     margin-bottom: 10px;
 }
 
+.icon-pic {
+    width: 20px;
+    height: 20px;
+}
+
 .artist-name {
     font-size: 2rem;
     margin: 0;
