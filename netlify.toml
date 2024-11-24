@@ -1,7 +1,19 @@
 [build]
   functions = "netlify/functions"  # Ceci doit pointer vers le bon dossier des fonctions
   node_version = "14"  
-  
+
+[[redirects]]
+from = "/OneSignalSDKWorker.js"
+to = "/OneSignalSDKWorker.js"
+status = 200
+force = true
+
+[[redirects]]
+from = "/OneSignalSDKUpdaterWorker.js"
+to = "/OneSignalSDKUpdaterWorker.js"
+status = 200
+force = true
+
 [[headers]]
 for = "/*"
 [headers.values]
