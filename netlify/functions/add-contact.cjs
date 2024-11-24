@@ -1,5 +1,5 @@
 // netlify/functions/add-contact.js
-const fetch = require('node-fetch'); // Vous aurez besoin de `node-fetch` pour faire des requêtes API
+import fetch from 'node-fetch'; // Vous aurez besoin de `node-fetch` pour faire des requêtes API
 const apiKey = process.env.BREVO_API_KEY; // Utilisez une variable d'environnement pour sécuriser la clé API
 
 exports.handler = async (event) => {
@@ -32,7 +32,7 @@ exports.handler = async (event) => {
     body: JSON.stringify({
       email: '', // Vous pouvez ajouter une adresse email si vous le souhaitez
       attributes: { PHONE: phone },
-      listIds: telephone [/* Liste d'ID à laquelle ajouter ce contact */],
+      listIds: [5],/* Liste d'ID à laquelle ajouter ce contact */
     })
   });
 
