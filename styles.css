@@ -87,19 +87,19 @@ button:disabled {
     align-items: center; /* Centre verticalement les colonnes */
 }
   
-  /* Chaque colonne */
+/* Chaque colonne */
 .column {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centre verticalement les boutons */
-    align-items: flex-end; /* Par défaut, les boutons sont alignés à droite */
+    justify-content: flex-start; /* Alignement vers le haut */
+    align-items: flex-end; /* Par défaut, les boutons restent alignés à droite */
     gap: 10px; /* Espacement constant de 10px entre les boutons */
-  }
+}
   
-  /* Deuxième colonne alignée à gauche */
-  .column:nth-child(2) {
+/* Deuxième colonne alignée à gauche */
+.column:nth-child(2) {
     align-items: flex-start; /* Boutons alignés à gauche */
-  }
+}
   
   /* Boutons */
   button {
