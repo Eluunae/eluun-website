@@ -1,4 +1,3 @@
-// Importation de node-fetch en version 2, compatible avec CommonJS
 const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
@@ -10,16 +9,16 @@ exports.handler = async (event) => {
   console.log('Phone:', phone);
   console.log('Consent:', consent);
 
-    // Assurez-vous que la clé API est récupérée correctement
-    const apiKey = process.env.BREVO_API_KEY;
+  // Assurez-vous que la clé API est récupérée correctement
+  const apiKey = process.env.BREVO_API_KEY;
 
-    if (!apiKey) {
-      console.error('API Key is missing');
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ message: 'API Key missing' }),
-      };
-    }
+  if (!apiKey) {
+    console.error('API Key is missing');
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'API Key missing' }),
+    };
+  }
 
   // Vous pouvez maintenant faire appel à l'API ou effectuer une autre logique
   try {
@@ -27,7 +26,7 @@ exports.handler = async (event) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.BREVO_API_KEY}`,  // Assurez-vous que votre clé API est dans .env
+        'Authorization': `Bearer ${apiKey}`,  // Assurez-vous que la clé API est utilisée ici
       },
       body: JSON.stringify({
         listIds: [5],  // Liste à laquelle ajouter ce contact
