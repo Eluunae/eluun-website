@@ -9,17 +9,9 @@
     <script>
         window.OneSignalDeferred = window.OneSignalDeferred || [];
         OneSignalDeferred.push(async function(OneSignal) {
-            console.log("OneSignal initialisé");
             await OneSignal.init({
                 appId: "87a222fa-2a66-4f8e-b7e8-187932e0d87b",
-            });
-            console.log("Initialisation complète");
-            OneSignal.init({
-    appId: "87a222fa-2a66-4f8e-b7e8-187932e0d87b",
-    promptOptions: {
-        autoPrompt: true,
-    },
-});
+            });     
         });
     </script>
 </head>
@@ -135,13 +127,6 @@
         </button>
     </a>
 </div>
-  
- <!-- Déclencheur manuel de onesignal-->
- <script>
-    OneSignal.push(function () {
-      OneSignal.showNativePrompt(); // Demande manuelle immédiate
-    });
-  </script>
 
     <!-- Popup -->
     <div id="popup" class="popup">
