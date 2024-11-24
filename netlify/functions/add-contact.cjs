@@ -10,6 +10,17 @@ exports.handler = async (event) => {
   console.log('Phone:', phone);
   console.log('Consent:', consent);
 
+    // Assurez-vous que la clé API est récupérée correctement
+    const apiKey = process.env.BREVO_API_KEY;
+
+    if (!apiKey) {
+      console.error('API Key is missing');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ message: 'API Key missing' }),
+      };
+    }
+
   // Vous pouvez maintenant faire appel à l'API ou effectuer une autre logique
   try {
     const response = await fetch('https://api.brevo.com/v3/contacts', {
