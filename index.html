@@ -128,6 +128,12 @@
     </a>
 </div>
   
+ <!-- Déclencheur manuel de onesignal-->
+ <script>
+    OneSignal.push(function () {
+      OneSignal.showNativePrompt(); // Demande manuelle immédiate
+    });
+  </script>
 
     <!-- Popup -->
     <div id="popup" class="popup">
