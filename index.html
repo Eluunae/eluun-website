@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.init({
-        appId: "87a222fa-2a66-4f8e-b7e8-187932e0d87b",
-        });
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function(OneSignal) {
+            console.log("OneSignal initialisé");
+            await OneSignal.init({
+                appId: "87a222fa-2a66-4f8e-b7e8-187932e0d87b",
+            });
+            console.log("Initialisation complète");
         });
     </script>
 </head>
