@@ -24,7 +24,8 @@ exports.handler = async (event) => {
 
   // Ici, on met le téléphone sous l'attribut SMS comme conseillé
   createContact.attributes = {
-    SMS: phone,  // Format : "+33 6 00 00 00 00" par exemple
+    SMS: phone,
+    CONSENT: consent  // Format : "+33 6 00 00 00 00" par exemple
   };
 
   // Appel de l'API pour créer le contact
