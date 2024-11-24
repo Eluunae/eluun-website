@@ -131,7 +131,7 @@ button:disabled {
   
     .column {
       width: 100%; /* Prend toute la largeur disponible */
-      align-items: center; /* Centre les boutons */
+      /*align-items: center; /* Centre les boutons */
     }
   
     button {
