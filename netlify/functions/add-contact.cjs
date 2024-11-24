@@ -1,5 +1,5 @@
 // netlify/functions/add-contact.js
-import fetch from 'node-fetch'; // Vous aurez besoin de `node-fetch` pour faire des requêtes API
+const fetch = require('node-fetch'); // Vous aurez besoin de `node-fetch` pour faire des requêtes API
 const apiKey = process.env.BREVO_API_KEY; // Utilisez une variable d'environnement pour sécuriser la clé API
 
 exports.handler = async (event) => {
