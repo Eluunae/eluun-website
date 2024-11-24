@@ -1,57 +1,41 @@
-const fetch = require('node-fetch');
+const SibApiV3Sdk = require('sib-api-v3-sdk');
 
 exports.handler = async (event) => {
-  // Parse les données envoyées par le formulaire
+  // Configure le client avec ta clé API
+  let defaultClient = SibApiV3Sdk.ApiClient.instance;
+  let apiKey = defaultClient.authentications['api-key'];
+  apiKey.apiKey = process.env.BREVO_API_KEY;  // Assure-toi que ta clé API est dans .env
+
+  // Créer l'instance de l'API Contacts
+  let apiInstance = new SibApiV3Sdk.ContactsApi();
+
+  // Récupérer les données envoyées par le formulaire
   const body = JSON.parse(event.body);
-  const phone = body.phone;
+  const phone = body.phone; // Le téléphone doit être dans le bon format international
   const consent = body.consent;
 
   console.log('Phone:', phone);
   console.log('Consent:', consent);
 
-  // Assurez-vous que la clé API est récupérée correctement
-  const apiKey = process.env.BREVO_API_KEY;
+  // Créer un contact
+  let createContact = new SibApiV3Sdk.CreateContact();
+  createContact.email = 'example@example.com'; // Remplace si nécessaire
+  createContact.listIds = [5];  // Liste à laquelle ajouter ce contact
 
-  if (!apiKey) {
-    console.error('API Key is missing');
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'API Key missing' }),
-    };
-  }
+  // Ici, on met le téléphone sous l'attribut SMS comme conseillé
+  createContact.attributes = {
+    SMS: phone,  // Format : "+33 6 00 00 00 00" par exemple
+  };
 
-  // Vous pouvez maintenant faire appel à l'API ou effectuer une autre logique
+  // Appel de l'API pour créer le contact
   try {
-    const response = await fetch('https://api.brevo.com/v3/contacts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,  // Assurez-vous que la clé API est utilisée ici
-      },
-      body: JSON.stringify({
-        listIds: [5],  // Liste à laquelle ajouter ce contact
-        attributes: {
-          PHONE: phone,
-        },
-      }),
-    });
+    const data = await apiInstance.createContact(createContact);
+    console.log('API called successfully. Contact added:', data);
 
-    const data = await response.json();
-    
-    if (!response.ok) {
-      // Si l'API retourne une erreur
-      return {
-        statusCode: response.status,
-        body: JSON.stringify({ message: 'Failed to add contact', error: data }),
-      };
-    }
-
-    // Si tout va bien
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Contact added successfully', data }),
     };
-
   } catch (error) {
     console.error('Error:', error);
     return {
