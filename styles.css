@@ -84,7 +84,7 @@ button:disabled {
     gap: 50px; /* Espacement entre les colonnes */
     padding: 50px 20px;
     align-items: center; /* Centre verticalement les colonnes */
-    height: 100vh; /* Prend toute la hauteur de la page */
+    /*height: 100vh; /* Prend toute la hauteur de la page */
   }
   
   /* Chaque colonne */
