@@ -12,6 +12,12 @@ body {
     margin-top: 50px;
 }
 
+.onesignal-customlink-container {
+    display: block !important;
+    visibility: visible !important;
+}
+
+
 .profile {
     margin-bottom: 30px;
 }
