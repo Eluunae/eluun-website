@@ -1,0 +1,2 @@
+[build]
+  functions = "netlify/functions"  # Ceci doit pointer vers le bon dossier des fonctions
