@@ -91,13 +91,13 @@ button:disabled {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; /* Aligner les boutons en haut de la colonne */
-    align-items: flex-start; /* Alignement horizontal des boutons à gauche */
+    align-items: flex-end; /* Alignement horizontal des boutons à gauche */
     gap: 10px; /* Espacement constant de 10px entre les boutons */
 }
   
 /* Deuxième colonne alignée à gauche */
 .column:nth-child(2) {
-    align-items: flex-end; /* Aligner horizontalement les boutons de la première colonne à droite */
+    align-items: flex-start; /* Aligner horizontalement les boutons de la première colonne à droite */
 }
   
   /* Boutons */
