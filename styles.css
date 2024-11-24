@@ -84,16 +84,16 @@ button:disabled {
     gap: 50px; /* Espacement entre les colonnes */
     padding: 50px 20px;
     align-items: center; /* Centre verticalement les colonnes */
-    /*height: 100vh; /* Prend toute la hauteur de la page */
+    height: 100vh; /* Prend toute la hauteur de la page */
   }
   
   /* Chaque colonne */
-  .column {
+.column {
     display: flex;
     flex-direction: column;
     justify-content: center; /* Centre verticalement les boutons */
     align-items: flex-end; /* Par défaut, les boutons sont alignés à droite */
-    gap: 10px; /* Espacement entre les boutons */
+    gap: 10px; /* Espacement constant de 10px entre les boutons */
   }
   
   /* Deuxième colonne alignée à gauche */
