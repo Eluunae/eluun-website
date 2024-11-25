@@ -12,11 +12,6 @@ body {
     margin-top: 50px;
 }
 
-.onesignal-customlink-container {
-    display: block !important;
-    visibility: visible !important;
-}
-
 
 .profile {
     margin-bottom: 30px;
@@ -45,7 +40,7 @@ body {
     margin: auto;
 }
 
-form {
+/*form {
     display: flex;
     flex-direction: column;
 }
@@ -61,7 +56,7 @@ input[type="text"] {
 
 input[type="checkbox"] {
     margin-right: 10px;
-}
+}*/
 
 button {
     padding: 10px;
