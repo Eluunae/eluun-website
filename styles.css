@@ -67,7 +67,7 @@ a {
     outline: none; /* Supprime le contour bleu de focus */
 }
 
-/* Section des boutons */
+//* Section des boutons */
 .button-section {
     display: flex;
     justify-content: center; /* Centrer les colonnes horizontalement */
@@ -82,12 +82,12 @@ a {
     flex-direction: column;
     justify-content: flex-start; /* Alignement des boutons en haut de la colonne */
     align-items: flex-end; /* Alignement horizontal des boutons à droite */
-    gap: 10px; /* Espacement constant de 10px entre les boutons */
+    gap: 10px; /* Espacement vertical de 10px entre les boutons */
 }
-  
+
 /* Deuxième colonne alignée à droite */
 .column:nth-child(2) {
-    align-items: flex-start; /* Aligner horizontalement les boutons de la deuxième colonne à droite */
+    align-items: flex-start; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
 }
 
 button .button-icon img {
