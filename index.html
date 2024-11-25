@@ -6,7 +6,6 @@
     <title>Eluun - Official</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <!-- Main container -->
     <div class="container">
@@ -16,86 +15,133 @@
             <h1 class="artist-name">Eluun</h1>
         </div>
 
-        <!-- Subscription Form (removed unnecessary form) -->
+        <!-- Subscription Form -->
         <div class="form-container">
-            <h2>Give your strongest support to underground independence !</h2>
-            <p style="font-size: 10px;">Today's music world is terribly hard on independent, non-mainstream and underground artists.<br><br>
-                Dependence on algorithms is a veritable plague that is slowly killing our industry.<br><br>
-                That's why I want to take strong action and stop putting my trust in platforms like Spotify or Instagram, which severely limit the support you want to give me by profoundly limiting my visibility.<br><br>
-                I've been looking for an alternative solution for a long time, and Patreon seems to be the best one. You can join my free channel and centralize my communication on this platform, which has been adopted by the majority of today's independent artists.</p>
-            <a href="https://www.patreon.com/c/eluun" target="_blank"><button type="button" id="submit-btn">Follow Me</button></a>
+            <h2>Subscribe to get exclusive updates</h2>
+            <form id="phone-form">
+                <label for="phone">Phone Number *</label>
+                <input type="text" id="phone" name="phone" placeholder="Include your number with your country's code, for example +33 6 00 00 00 00" required>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="consent" required>
+                    <label for="consent">I want to subscribe to your SMS list.</label>
+                </div>
+
+                <button type="submit" id="submit-btn" disabled>Keep Informed</button>
+            </form>
         </div>
 
         <!-- Button Section -->
-        <section class="button-section">
-            <div class="column">
-                <a href="https://www.mbartists.co.uk/clara/eluun" target="_blank"><button>Booking EU/UK</button></a>
-                <a href="https://www.patreon.com/c/Eluun" target="_blank"><button>Patreon (support)</button></a>
-                <a href="https://www.instagram.com/eluun.dnb/" target="_blank"><button>Instagram</button></a>
-                <a href="https://soundcloud.com/eluunofficial" target="_blank"><button>Soundcloud</button></a>
-                <a href="https://open.spotify.com/intl-fr/artist/7LySsKIRvri6Ye5kUv47DQ?si=3165a23d26134a30" target="_blank"><button>Spotify</button></a>
-                <a href="https://music.apple.com/fr/artist/eluun/1195602750" target="_blank"><button>Apple Music</button></a>
-                <a href="https://www.example.com/free-download" target="_blank"><button>Free download my music</button></a>
-            </div>
+        <!-- Début du bloc des boutons -->
+<!-- Section des boutons -->
+<section class="button-section">
+<!-- Première colonne -->
+<div class="column">
+    <a href="https://www.mbartists.co.uk/clara/eluun" target="_blank"><button>Booking EU/UK</button></a>
+    <a href="https://www.patreon.com/c/Eluun" target="_blank"><button>Patreon (support)</button></a>
+    <a href="https://www.instagram.com/eluun.dnb/" target="_blank"><button>Instagram</button></a>
+    <a href="https://soundcloud.com/eluunofficial" target="_blank"><button>Soundcloud</button></a>
+    <a href="https://open.spotify.com/intl-fr/artist/7LySsKIRvri6Ye5kUv47DQ?si=3165a23d26134a30" target="_blank"><button>Spotify</button></a>
+    <a href="https://music.apple.com/fr/artist/eluun/1195602750" target="_blank"><button>Apple Music</button></a>
+    <a href="https://www.example.com/free-download" target="_blank"><button>Free download my music</button></a>
+  </div>
+  
+<!-- Deuxième colonne -->
+<div class="column">
+    <a href="https://bfan.link/soulchild" target="_blank">
+        <button>
+            Soulchild EP
+            <span class="button-icon">
+                <img src="Soulchild.jpg" class="icon-pic" />
+            </span>
+        </button>
+    </a>
 
-            <div class="column">
-                <a href="https://bfan.link/soulchild" target="_blank">
-                    <button>
-                        Soulchild EP
-                        <span class="button-icon">
-                            <img src="Soulchild.jpg" class="icon-pic" />
-                        </span>
-                    </button>
-                </a>
+    <a href="https://kosenprod.fanlink.tv/fromdusttodawn" target="_blank">
+        <button>
+            Snowfall
+            <span class="button-icon">
+                <img src="Snowfall.jpg" class="icon-pic" />
+            </span>
+        </button>
+    </a>
 
-                <a href="https://kosenprod.fanlink.tv/fromdusttodawn" target="_blank">
-                    <button>
-                        Snowfall
-                        <span class="button-icon">
-                            <img src="Snowfall.jpg" class="icon-pic" />
-                        </span>
-                    </button>
-                </a>
+    <a href="https://open.spotify.com/intl-fr/album/0Fb4pOQvyLpSb2S8YA4NYs?si=fEh5RrFtR5eugEDestkbHQ&nd=1&dlsi=ddcdd303e43a4367" target="_blank">
+        <button>
+            Icarus EP
+            <span class="button-icon">
+                <img src="Icarus.jpg" class="icon-pic" />
+            </span>
+        </button>
+    </a>
 
-                <a href="https://open.spotify.com/intl-fr/album/0Fb4pOQvyLpSb2S8YA4NYs?si=fEh5RrFtR5eugEDestkbHQ&nd=1&dlsi=ddcdd303e43a4367" target="_blank">
-                    <button>
-                        Icarus EP
-                        <span class="button-icon">
-                            <img src="Icarus.jpg" class="icon-pic" />
-                        </span>
-                    </button>
-                </a>
+    <a href="https://bfan.link/gen-iii" target="_blank">
+        <button>
+            Unseen
+            <span class="button-icon">
+                <img src="Unseen.jpg" class="icon-pic" />
+            </span>
+        </button>
+    </a>
 
-                <a href="https://bfan.link/gen-iii" target="_blank">
-                    <button>
-                        Unseen
-                        <span class="button-icon">
-                            <img src="Unseen.jpg" class="icon-pic" />
-                        </span>
-                    </button>
-                </a>
+    <a href="https://soundcloud.com/eluunofficial/tarantula-bootleg" target="_blank">
+        <button>
+            Tarantula Bootleg
+            <span class="button-icon">
+                <img src="Tarantula.jpg" class="icon-pic" />
+            </span>
+        </button>
+    </a>
 
-                <a href="https://soundcloud.com/eluunofficial/tarantula-bootleg" target="_blank">
-                    <button>
-                        Tarantula Bootleg
-                        <span class="button-icon">
-                            <img src="Tarantula.jpg" class="icon-pic" />
-                        </span>
-                    </button>
-                </a>
+    <a href="https://soundcloud.com/eluunofficial/buunshin-different-tomorrow-eluun-remix-8" target="_blank">
+        <button>
+            Different Tomorrow Remix
+            <span class="button-icon">
+                <img src="Different.jpg" class="icon-pic" />
+            </span>
+        </button>
+    </a>
+</div>
+  
 
-                <a href="https://soundcloud.com/eluunofficial/buunshin-different-tomorrow-eluun-remix-8" target="_blank">
-                    <button>
-                        Different Tomorrow Remix
-                        <span class="button-icon">
-                            <img src="Different.jpg" class="icon-pic" />
-                        </span>
-                    </button>
-                </a>
-            </div>
-        </section>
+    <!-- Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p>Please enter your phone number in the international format, for example: +33 6 00 00 00 00.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Enable form submission only if all conditions are met
+        const phoneInput = document.getElementById('phone');
+        const consentCheckbox = document.getElementById('consent');
+        const submitBtn = document.getElementById('submit-btn');
+
+        phoneInput.addEventListener('input', validateForm);
+        consentCheckbox.addEventListener('change', validateForm);
+
+        function validateForm() {
+            const phoneValue = phoneInput.value;
+            const isPhoneValid = phoneValue.startsWith('+') && phoneValue.length > 5;
+            if (isPhoneValid && consentCheckbox.checked) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        // Popup display if phone number is not international
+        document.getElementById('phone-form').addEventListener('submit', function(event) {
+            if (!phoneInput.value.startsWith('+')) {
+                event.preventDefault();
+                document.getElementById('popup').style.display = 'block';
+            }
+        });
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
