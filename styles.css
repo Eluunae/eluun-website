@@ -127,6 +127,15 @@ button:disabled {
     cursor: not-allowed;
 }
 
+h3.link-text {
+    color: #ffffff; /* Couleur du texte */
+    text-decoration: ; /* Souligner le texte */
+    font-size: 20px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+    margin-top: 50px ; /* Marge en haut */
+    cursor: pointer; /* Curseur en forme de main pour indiquer un lien */
+    transition: color 0.3s ease; /* Transition pour la couleur */
+}
 
 /* Section des boutons */
 .button-section {
@@ -146,8 +155,8 @@ button:disabled {
     align-items: flex-end; /* Alignement horizontal des boutons à droite */
     gap: 10px;
     width: 50%;
-    padding-top: 30px /* Espacement constant de 30px entre les boutons */
-    
+    padding-top: 30px;
+    padding-bottom: 300px
 }
   
 /* Deuxième colonne alignée à gauche */
