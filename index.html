@@ -112,46 +112,5 @@
         </button>
     </a>
 </div>
-  
-
-    <!-- Popup -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <p>Please enter your phone number in the international format, for example: +33 6 00 00 00 00.</p>
-            <button onclick="closePopup()">OK</button>
-        </div>
-    </div>
-
-    <script>
-        // Enable form submission only if all conditions are met
-        const phoneInput = document.getElementById('phone');
-        const consentCheckbox = document.getElementById('consent');
-        const submitBtn = document.getElementById('submit-btn');
-
-        phoneInput.addEventListener('input', validateForm);
-        consentCheckbox.addEventListener('change', validateForm);
-
-        function validateForm() {
-            const phoneValue = phoneInput.value;
-            const isPhoneValid = phoneValue.startsWith('+') && phoneValue.length > 5;
-            if (isPhoneValid && consentCheckbox.checked) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
-        }
-
-        // Popup display if phone number is not international
-        document.getElementById('phone-form').addEventListener('submit', function(event) {
-            if (!phoneInput.value.startsWith('+')) {
-                event.preventDefault();
-                document.getElementById('popup').style.display = 'block';
-            }
-        });
-
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-    </script>
 </body>
 </html>
