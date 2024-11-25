@@ -119,13 +119,13 @@ button:disabled {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; /* Aligner les boutons en haut de la colonne */
-    align-items: flex-end; /* Alignement horizontal des boutons à droite */
+    align-items: flex-start; /* Alignement horizontal des boutons à droite */
     gap: 10px; /* Espacement constant de 10px entre les boutons */
 }
   
 /* Deuxième colonne alignée à gauche */
 .column:nth-child(2) {
-    align-items: flex-start; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
+    align-items: flex-end; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
 }
   
   /* Boutons */
