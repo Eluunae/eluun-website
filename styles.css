@@ -67,28 +67,29 @@ a {
     outline: none; /* Supprime le contour bleu de focus */
 }
 
-//* Section des boutons */
+/* Section des boutons */
 .button-section {
     display: flex;
-    justify-content: center; /* Centrer les colonnes horizontalement */
+    justify-content: space-between; /* Les colonnes s'alignent l'une à côté de l'autre */
     align-items: flex-start; /* Aligner les colonnes en haut */
-    gap: 20px; /* Espacement horizontal entre les colonnes */
     padding: 50px 20px; /* Espacement avec les autres sections */
 }
-  
+
 /* Chaque colonne */
 .column {
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Alignement des boutons en haut de la colonne */
-    align-items: flex-end; /* Alignement horizontal des boutons à droite */
     gap: 10px; /* Espacement vertical de 10px entre les boutons */
+    width: 45%; /* Définir une largeur pour chaque colonne pour qu'elles soient côte à côte */
 }
 
-/* Deuxième colonne alignée à droite */
+/* Deuxième colonne alignée à gauche */
 .column:nth-child(2) {
-    align-items: flex-start; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
+    align-items: flex-start; /* Alignement horizontal des boutons de la deuxième colonne à gauche */
 }
+
+
 
 button .button-icon img {
     height: 100%;
