@@ -61,7 +61,7 @@ body {
 }
 
 .music-block-1::before {
-    background-image: url('Snowfall.jpg'); /* Image de fond pour le premier bloc */
+    background-image: url('Tarantula.jpg'); /* Image de fond pour le premier bloc */
 }
 
 .music-block-2::before {
@@ -69,7 +69,7 @@ body {
 }
 
 .music-block-3::before {
-    background-image: url('Tarantula.jpg'); /* Image de fond pour le troisième bloc */
+    background-image: url('Stase.jpg'); /* Image de fond pour le troisième bloc */
 }
 
 .music-block h3 {
