@@ -12,7 +12,6 @@ body {
     margin-top: 50px;
 }
 
-
 .profile {
     margin-bottom: 30px;
 }
@@ -40,24 +39,7 @@ body {
     margin: auto;
 }
 
-/*form {
-    display: flex;
-    flex-direction: column;
-}
-
-input[type="text"] {
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #444;
-    border-radius: 5px;
-    background-color: #222;
-    color: #fff;
-}
-
-input[type="checkbox"] {
-    margin-right: 10px;
-}*/
-
+/* Button Styles */
 button {
     padding: 10px;
     margin: 20px 0;
@@ -67,6 +49,7 @@ button {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
+    width: fit-content; /* Ajuste la largeur des boutons selon leur contenu */
 }
 
 button:hover {
@@ -74,43 +57,22 @@ button:hover {
 }
 
 button:disabled {
-    background-color: #555; 
-    cursor: not-allowed;
-}
-
-/* Style spécifique pour le bouton "Keep Informed" */
-.form-container #submit-btn {
-    background-color: #444; /* Couleur spécifique */
-    color: white;
-    padding: 12px 30px; /* Ajustement des dimensions */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 20px auto 10px; /* Espacement au-dessus (20px) et en dessous (10px), centré horizontalement */
-    display: block; /* S'assure que le bouton occupe une ligne entière pour le centrage */
-    width: fit-content; /* Largeur ajustée au contenu */
-    transition: background-color 0.3s ease;
-}
-
-/* Style au survol */
-.form-container #submit-btn:hover {
-    background-color: #666;
-}
-
-/* Style désactivé */
-.form-container #submit-btn:disabled {
     background-color: #555;
     cursor: not-allowed;
 }
 
+/* Section des boutons */
+a {
+    text-decoration: none; /* Supprime le soulignement */
+    outline: none; /* Supprime le contour bleu de focus */
+}
 
 /* Section des boutons */
 .button-section {
     display: flex;
     justify-content: center; /* Centrer les colonnes horizontalement */
     align-items: flex-start; /* Aligner les colonnes en haut */
-    gap: 50px; /* Espacement horizontal entre les colonnes */
+    gap: 20px; /* Espacement horizontal entre les colonnes */
     padding: 50px 20px; /* Espacement avec les autres sections */
 }
   
@@ -118,113 +80,36 @@ button:disabled {
 .column {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Aligner les boutons en haut de la colonne */
-    align-items: flex-start; /* Alignement horizontal des boutons à droite */
+    justify-content: flex-start; /* Alignement des boutons en haut de la colonne */
+    align-items: flex-end; /* Alignement horizontal des boutons à droite */
     gap: 10px; /* Espacement constant de 10px entre les boutons */
 }
   
-/* Deuxième colonne alignée à gauche */
+/* Deuxième colonne alignée à droite */
 .column:nth-child(2) {
-    align-items: flex-end; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
+    align-items: flex-start; /* Aligner horizontalement les boutons de la deuxième colonne à droite */
 }
-  
-  /* Boutons */
-  button {
-    background-color: #333; /* Couleur du bouton */
-    color: #fff; /* Couleur du texte */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    width: fit-content; /* S'adapte au texte */
-    transition: background-color 0.3s ease;
-    margin: 0; /* Supprime toute marge inutile */
-    box-sizing: border-box; /* Inclure padding dans la largeur et la hauteur */
-  }
-  
-  button:hover {
-    background-color: #555; /* Couleur du bouton au survol */
-  }
-  
-  /* Ajustement pour les petits écrans (responsive) */
-  @media screen and (max-width: 768px) {
-    .button-section {
-      flex-direction: column;
-      align-items: center;
-      gap: 30px; /* Augmente l'espacement entre les colonnes pour les petits écrans */
-    }
-  
-    .column {
-      width: 100%; /* Prend toute la largeur disponible */
-      align-items: center; /* Centre les boutons */
-    }
 
-    .column:nth-child(2) {
-        align-items: center; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
-    }
-  
-    button {
-      width: auto; /* Les boutons restent adaptés à leur contenu */
-    }
-  }
-  
-  /* Ajuster la taille de l'image pour qu'elle ait la même hauteur que le bouton */
 button .button-icon img {
-    height: 100%; /* Prendre toute la hauteur du bouton */
-    width: 20px; /* Garder l'aspect de l'image */
-    object-fit: contain; /* Maintenir l'intégrité de l'image sans la déformer */
-  }
-  
-  
-  
-  
-
-/* Popup Styles */
-.popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    width: 20px;
+    object-fit: contain;
 }
 
-.popup-content {
-    background-color: #222;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.popup button {
-    background-color: #444;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-    .profile-pic {
-        width: 120px;
-        height: 120px;
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .button-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
     }
 
-    .artist-name {
-        font-size: 1.5rem;
-    }
-
-    .form-container {
-        width: 90%;
-    }
-
-    .button-row button {
+    .column {
         width: 100%;
-        margin: 5px 0;
+        align-items: center;
+    }
+
+    button {
+        width: auto;
     }
 }
