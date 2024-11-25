@@ -134,7 +134,7 @@ button:disabled {
     justify-content: center; /* Centrer les colonnes horizontalement */
     align-items: flex-start; /* Aligner les colonnes en haut */
     gap: 50px; /* Espacement horizontal entre les colonnes */
-    padding: 50px 20px; /* Espacement avec les autres sections */
+    padding: /*50px 20px; /* Espacement avec les autres sections */
 }
   
 /* Chaque colonne */
@@ -156,7 +156,7 @@ button:disabled {
     background-color: #333; /* Couleur du bouton */
     color: #fff; /* Couleur du texte */
     border: none;
-    padding: 10px /*20px*/;
+    padding: 10px 20px;
     border-radius: 5px;
     text-align: center;
     font-size: 16px;
@@ -205,7 +205,7 @@ button .button-icon img {
   
 
 /* Popup Styles */
-.popup {
+/*.popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -231,6 +231,7 @@ button .button-icon img {
     border-radius: 5px;
     margin-top: 20px;
 }
+*/
 
 @media (max-width: 600px) {
     .profile-pic {
