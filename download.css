@@ -36,15 +36,16 @@ body {
 .music-block {
     position: relative; /* Position relative pour le contenu */
     background-color: rgba(0, 0, 0, 0.8); /* Couleur de fond semi-transparente */
-    border: 2px solid rgba(24, 24, 24, 0.8); /* Couleur de la bordure semi-transparente */
+    border: px solid rgba(24, 24, 24, 0.8); /* Couleur de la bordure semi-transparente */
     padding: 20px;
     width: 80%;
     text-align: left; /* Aligner le texte à gauche */
-    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 15px rgba(0, 0, 0, 0.7);
     display: flex; /* Disposer les éléments horizontalement */
     align-items: center; /* Aligner les éléments verticalement */
     gap: 20px; /* Espacement entre les éléments */
     overflow: hidden; /* Masquer le débordement */
+    border-radius: 10px;
 }
 
 .music-block::before {
@@ -56,8 +57,9 @@ body {
     bottom: 0;
     background-size: cover; /* Couvrir tout le bloc */
     background-position: center; /* Centrer l'image */
-    filter: blur(10px); /* Appliquer un flou */
+    filter: blur(100px); /* Appliquer un flou */
     z-index: -1; /* Placer derrière le contenu */
+    border-radius: 10px;
 }
 
 .music-block-1::before {
@@ -96,5 +98,6 @@ body {
     margin-left: auto; /* Aligner le bouton à droite */
     display: block; /* Assurer que le bouton est un élément de bloc */
     z-index: 1; /* Placer au-dessus de l'image de fond */
+    border-radius: 5px;
 }
 
