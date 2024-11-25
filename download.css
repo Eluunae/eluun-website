@@ -36,11 +36,11 @@ body {
 .music-block {
     position: relative; /* Position relative pour le contenu */
     background-color: rgba(0, 0, 0, 0.8); /* Couleur de fond semi-transparente */
-    border: px solid rgba(24, 24, 24, 0.8); /* Couleur de la bordure semi-transparente */
+    border: 2px solid rgba(24, 24, 24, 0.8); /* Couleur de la bordure semi-transparente */
     padding: 20px;
     width: 80%;
     text-align: left; /* Aligner le texte à gauche */
-    box-shadow: 0 0px 15px rgba(0, 0, 0, 0.7);
+    box-shadow: none; /* Supprimer toute ombre */
     display: flex; /* Disposer les éléments horizontalement */
     align-items: center; /* Aligner les éléments verticalement */
     gap: 20px; /* Espacement entre les éléments */
@@ -57,7 +57,7 @@ body {
     bottom: 0;
     background-size: cover; /* Couvrir tout le bloc */
     background-position: center; /* Centrer l'image */
-    filter: blur(100px); /* Appliquer un flou */
+    filter: blur(5px); /* Réduire le flou */
     z-index: -1; /* Placer derrière le contenu */
     border-radius: 10px;
 }
@@ -72,6 +72,19 @@ body {
 
 .music-block-3::before {
     background-image: url('Stase.jpg'); /* Image de fond pour le troisième bloc */
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1; /* Placer au-dessus de l'image de fond */
+}
+
+.artist-name {
+    font-weight: bold; /* Texte en gras */
+    margin: 0; /* Supprimer la marge par défaut */
+    color: #ffffff; /* Couleur du texte */
 }
 
 .music-block h3 {
@@ -89,7 +102,7 @@ body {
 }
 
 .api-button {
-    background-color: #0e0e0e; /* Couleur du bouton */
+    background-color: #007BFF; /* Couleur du bouton */
     color: white; /* Couleur du texte du bouton */
     border: none;
     padding: 10px 20px;
@@ -101,3 +114,90 @@ body {
     border-radius: 5px;
 }
 
+.api-button:hover {
+    background-color: #0056b3; /* Couleur du bouton au survol */
+}
+
+/* Styles pour le bloc flottant */
+.modal {
+    display: none; /* Masquer par défaut */
+    position: fixed; /* Position fixe */
+    z-index: 1000; /* Au-dessus de tout */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Activer le défilement si nécessaire */
+    background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Centrer verticalement et horizontalement */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px; /* Largeur maximale */
+    text-align: center; /* Centrer le texte */
+    position: relative; /* Position relative pour la croix */
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.soundcloud-button {
+    background-color: #ff5500; /* Couleur SoundCloud */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.spotify-button {
+    background-color: #1DB954; /* Couleur Spotify */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.instagram-button {
+    background-color: #E1306C; /* Couleur Instagram */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.patreon-button {
+    background-color: #555555; /* Couleur Patreon */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}

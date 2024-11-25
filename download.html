@@ -14,18 +14,18 @@
             <div class="music-block music-block-1">
                 <img src="Tarantula.jpg" alt="Musique 1" class="music-image">
                 <div class="music-info">
-                    
+                    <p class="artist-name">Eluun</p>
                     <h3>Tarantula - Pendulum x Circumference (Eluun Bootleg)</h3>
                 </div>
-                <button class="api-button" onclick="downloadFromSpotify()">Télécharger</button>
+                <button class="api-button" onclick="openModal()">Télécharger</button>
             </div>
             <div class="music-block music-block-2">
                 <img src="Different.jpg" alt="Musique 2" class="music-image">
                 <div class="music-info">
-                    
+                    <p class="artist-name">Eluun</p>
                     <h3>Buunshin - Different Tomorrow... (Eluun Remix)</h3>
                 </div>
-                <button class="api-button" onclick="downloadFromSpotify()">Télécharger</button>
+                <button class="api-button" onclick="openModal()">Télécharger</button>
             </div>
             <div class="music-block music-block-3">
                 <img src="Stase.jpg" alt="Musique 3" class="music-image">
@@ -33,10 +33,24 @@
                     <p class="artist-name">Eluun</p>
                     <h3>STASE</h3>
                 </div>
-                <button class="api-button" onclick="downloadFromSpotify()">Télécharger</button>
+                <button class="api-button" onclick="openModal()">Télécharger</button>
             </div>
         </div>
     </section>
+
+    <!-- Bloc flottant -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-buttons">
+                <button class="soundcloud-button">SoundCloud</button>
+                <button class="spotify-button">Spotify</button>
+                <button class="instagram-button">Instagram</button>
+            </div>
+            <p>Et</p>
+            <button class="patreon-button">Patreon</button>
+        </div>
+    </div>
 
     <script src="scripts.js"></script>
 </body>
