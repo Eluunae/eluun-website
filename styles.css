@@ -28,6 +28,14 @@ body {
     margin: 0;
 }
 
+/* Style spécifique pour le texte du paragraphe */
+.content-text {
+    font-size: 10px; /* Taille du texte */
+    line-height: 1.6;   /* Interligne pour rendre le texte plus aéré */
+    color: #ccc; /* Couleur du texte */
+    font-family: Arial, sans-serif; /* Police */
+}
+
 /* Form Styles */
 .form-container {
     margin: 20px;
@@ -90,6 +98,7 @@ button:disabled {
     display: block;
     width: fit-content;
     transition: background-color 0.3s ease;
+    text-align: center;
 }
 
 /* Au survol */
