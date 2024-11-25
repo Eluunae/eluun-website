@@ -44,10 +44,19 @@ a {
     text-decoration: none; /* Supprime le soulignement */
     outline: none; /* Supprime le contour bleu de focus */
 }
+/* Section des boutons */
+a {
+    text-decoration: none; /* Supprime le soulignement */
+    outline: none; /* Supprime le contour bleu de focus */
+}
 
 /* Section des boutons */
 .button-section {
     display: flex;
+    justify-content: space-between; /* Espacement entre les deux colonnes */
+    gap: 20px; /* Espacement horizontal entre les colonnes */
+    padding: 50px 20px; /* Espacement autour des colonnes */
+    flex-wrap: wrap; /* Permet de ne pas forcer les éléments dans une seule ligne */
     justify-content: space-between; /* Espacement entre les deux colonnes */
     gap: 20px; /* Espacement horizontal entre les colonnes */
     padding: 50px 20px; /* Espacement autour des colonnes */
@@ -60,9 +69,28 @@ a {
     flex-direction: column; /* Colonne verticale */
     align-items: flex-end; /* Alignement des boutons à droite */
     gap: 10px; /* Espacement vertical de 10px entre les boutons */
+
+/* Première colonne alignée à droite */
+.column:first-child {
+    display: flex; /* Flexbox pour aligner les éléments verticalement */
+    flex-direction: column; /* Colonne verticale */
+    align-items: flex-end; /* Alignement des boutons à droite */
+    gap: 10px; /* Espacement vertical de 10px entre les boutons */
 }
 
+
 /* Deuxième colonne alignée à gauche */
+.column:last-child {
+    display: flex; /* Flexbox pour aligner les éléments verticalement */
+    flex-direction: column; /* Colonne verticale */
+    align-items: flex-start; /* Alignement des boutons à gauche */
+    gap: 10px; /* Espacement vertical de 10px entre les boutons */
+}
+
+/* Style des boutons */
+button {
+    background-color: #333;
+    color: #fff;
 .column:last-child {
     display: flex; /* Flexbox pour aligner les éléments verticalement */
     flex-direction: column; /* Colonne verticale */
@@ -91,6 +119,9 @@ button:hover {
     background-color: #555;
 }
 
+
+
+
 button .button-icon img {
     height: 100%;
     width: 20px;
@@ -103,14 +134,25 @@ button .button-icon img {
         flex-direction: column;
         align-items: center;
         gap: 30px;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
     }
+
 
     .column {
         width: 100%;
         align-items: center;
+        width: 100%;
+        align-items: center;
     }
 
+
     button {
+        width: auto;
+    }
+}
+
         width: auto;
     }
 }
