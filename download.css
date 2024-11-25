@@ -1,0 +1,100 @@
+/* download.css */
+body {
+    background-color: #0d0d0d; /* Couleur de fond similaire à styles.css */
+    font-family: Arial, sans-serif;
+    color: #ffffff; /* Couleur du texte */
+    margin: 0;
+    padding: 0;
+}
+
+.download {
+    text-align: center;
+    padding: 20px;
+}
+
+#downloadButton {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#downloadButton:hover {
+    background-color: #0056b3;
+}
+
+.music-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.music-block {
+    position: relative; /* Position relative pour le contenu */
+    background-color: rgba(0, 0, 0, 0.8); /* Couleur de fond semi-transparente */
+    border: 2px solid rgba(24, 24, 24, 0.8); /* Couleur de la bordure semi-transparente */
+    padding: 20px;
+    width: 80%;
+    text-align: left; /* Aligner le texte à gauche */
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+    display: flex; /* Disposer les éléments horizontalement */
+    align-items: center; /* Aligner les éléments verticalement */
+    gap: 20px; /* Espacement entre les éléments */
+    overflow: hidden; /* Masquer le débordement */
+}
+
+.music-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover; /* Couvrir tout le bloc */
+    background-position: center; /* Centrer l'image */
+    filter: blur(10px); /* Appliquer un flou */
+    z-index: -1; /* Placer derrière le contenu */
+}
+
+.music-block-1::before {
+    background-image: url('Snowfall.jpg'); /* Image de fond pour le premier bloc */
+}
+
+.music-block-2::before {
+    background-image: url('Different.jpg'); /* Image de fond pour le deuxième bloc */
+}
+
+.music-block-3::before {
+    background-image: url('Tarantula.jpg'); /* Image de fond pour le troisième bloc */
+}
+
+.music-block h3 {
+    margin: 0; /* Supprimer la marge par défaut */
+    color: #ffffff; /* Couleur du texte */
+    z-index: 1; /* Placer au-dessus de l'image de fond */
+}
+
+.music-image {
+    width: 200px; /* Largeur de l'image */
+    height: 200px; /* Hauteur de l'image */
+    object-fit: cover; /* Ajuster l'image pour couvrir l'espace */
+    border-radius: 10px; /* Arrondir les angles de l'image */
+    z-index: 1; /* Placer au-dessus de l'image de fond */
+}
+
+.api-button {
+    background-color: #0e0e0e; /* Couleur du bouton */
+    color: white; /* Couleur du texte du bouton */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: auto; /* Aligner le bouton à droite */
+    display: block; /* Assurer que le bouton est un élément de bloc */
+    z-index: 1; /* Placer au-dessus de l'image de fond */
+}
+

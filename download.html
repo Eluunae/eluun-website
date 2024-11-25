@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Télécharger ma musique</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="download.css"> <!-- Lien vers le fichier CSS spécifique -->
 </head>
 <body>
-    <header>
-        <h1>Téléchargez ma musique gratuitement !</h1>
-    </header>
-
     <section class="download">
         <p>Pour télécharger mes morceaux, suivez-moi sur Spotify et SoundCloud, et laissez un commentaire ou repostez sur SoundCloud !</p>
         
-        <!-- Ajoutez ici un bouton de téléchargement (lié à une action validée par API) -->
-        <button id="downloadButton">Télécharger</button>
+        <div class="music-column">
+            <div class="music-block music-block-1">
+                <img src="Snowfall.jpg" alt="Musique 1" class="music-image">
+                <h3>Musique 1</h3>
+                <button class="api-button" onclick="downloadFromSpotify()">Télécharger</button>
+            </div>
+            <div class="music-block music-block-2">
+                <img src="Different.jpg" alt="Musique 2" class="music-image">
+                <h3>Musique 2</h3>
+                <button class="api-button" onclick="downloadFromSpotify()">Télécharger</button>
+            </div>
+            <div class="music-block music-block-3">
+                <img src="Tarantula.jpg" alt="Musique 3" class="music-image">
+                <h3>Musique 3</h3>
+                <button class="api-button" onclick="downloadFromSpotify()">Télécharger</button>
+            </div>
+        </div>
     </section>
 
     <script src="scripts.js"></script>
