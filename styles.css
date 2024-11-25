@@ -39,21 +39,25 @@ body {
     margin: auto;
 }
 
-/* Button Styles */
+/* Style des boutons */
 button {
-    padding: 10px;
-    margin: 20px 0;
+    background-color: #333;
+    color: #fff;
     border: none;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
+    padding: 10px 20px;
     border-radius: 5px;
-    transition: background-color 0.3s;
-    width: fit-content; /* Ajuste la largeur des boutons selon leur contenu */
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    width: fit-content;
+    margin: 0;
+    box-sizing: border-box;
+    padding-bottom: 10px; /* Ajout de padding bottom */
 }
 
+/* Au survol du bouton */
 button:hover {
-    background-color: #666;
+    background-color: #555;
 }
 
 button:disabled {
@@ -70,23 +74,21 @@ a {
 /* Section des boutons */
 .button-section {
     display: flex;
-    justify-content: space-between; /* Les colonnes s'alignent l'une à côté de l'autre */
-    align-items: flex-start; /* Aligner les colonnes en haut */
-    padding: 50px 20px; /* Espacement avec les autres sections */
+    justify-content: space-between; /* Permet de garder les colonnes côte à côte */
+    gap: 20px; /* Espacement horizontal entre les colonnes */
+    padding: 50px 20px; /* Espacement autour des colonnes */
 }
 
-/* Chaque colonne */
-.column {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Alignement des boutons en haut de la colonne */
+/* Première colonne alignée à droite */
+.column:first-child {
+    align-items: flex-end; /* Alignement des boutons à droite */
     gap: 10px; /* Espacement vertical de 10px entre les boutons */
-    width: 45%; /* Définir une largeur pour chaque colonne pour qu'elles soient côte à côte */
 }
 
 /* Deuxième colonne alignée à gauche */
-.column:nth-child(2) {
-    align-items: flex-start; /* Alignement horizontal des boutons de la deuxième colonne à gauche */
+.column:last-child {
+    align-items: flex-start; /* Alignement des boutons à gauche */
+    gap: 10px; /* Espacement vertical de 10px entre les boutons */
 }
 
 
