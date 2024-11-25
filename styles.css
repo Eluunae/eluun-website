@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+}
+
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
@@ -87,7 +91,7 @@ button:disabled {
 
 /* Nouveau style pour le bouton Follow Me */
 .follow-btn {
-    background-color: #ff7a00; /* Choisis une couleur différente pour ce bouton */
+    background-color: #353535; /* Choisis une couleur différente pour ce bouton */
     color: white;
     padding: 12px 30px;
     border: none;
