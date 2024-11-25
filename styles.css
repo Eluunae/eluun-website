@@ -39,6 +39,37 @@ body {
     margin: auto;
 }
 
+/* Section des boutons */
+a {
+    text-decoration: none; /* Supprime le soulignement */
+    outline: none; /* Supprime le contour bleu de focus */
+}
+
+/* Section des boutons */
+.button-section {
+    display: flex;
+    justify-content: space-between; /* Espacement entre les deux colonnes */
+    gap: 20px; /* Espacement horizontal entre les colonnes */
+    padding: 50px 20px; /* Espacement autour des colonnes */
+    flex-wrap: wrap; /* Permet de ne pas forcer les éléments dans une seule ligne */
+}
+
+/* Première colonne alignée à droite */
+.column:first-child {
+    display: flex; /* Flexbox pour aligner les éléments verticalement */
+    flex-direction: column; /* Colonne verticale */
+    align-items: flex-end; /* Alignement des boutons à droite */
+    gap: 10px; /* Espacement vertical de 10px entre les boutons */
+}
+
+/* Deuxième colonne alignée à gauche */
+.column:last-child {
+    display: flex; /* Flexbox pour aligner les éléments verticalement */
+    flex-direction: column; /* Colonne verticale */
+    align-items: flex-start; /* Alignement des boutons à gauche */
+    gap: 10px; /* Espacement vertical de 10px entre les boutons */
+}
+
 /* Style des boutons */
 button {
     background-color: #333;
@@ -49,8 +80,8 @@ button {
     text-align: center;
     font-size: 16px;
     cursor: pointer;
-    width: fit-content;
-    margin: 0;
+    width: fit-content; /* S'adapte au texte */
+    margin: 0; /* Pas de marge supplémentaire */
     box-sizing: border-box;
     padding-bottom: 10px; /* Ajout de padding bottom */
 }
@@ -59,36 +90,7 @@ button {
 button:hover {
     background-color: #555;
 }
-
-button:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-}
-
-/* Section des boutons */
-a {
-    text-decoration: none; /* Supprime le soulignement */
-    outline: none; /* Supprime le contour bleu de focus */
-}
-
-/* Section des boutons */
-.button-section {
-    display: flex;
-    justify-content: space-between; /* Permet de garder les colonnes côte à côte */
-    gap: 20px; /* Espacement horizontal entre les colonnes */
-    padding: 50px 20px; /* Espacement autour des colonnes */
-}
-
-/* Première colonne alignée à droite */
-.column:first-child {
-    align-items: flex-end; /* Alignement des boutons à droite */
-    gap: 10px; /* Espacement vertical de 10px entre les boutons */
-}
-
-/* Deuxième colonne alignée à gauche */
-.column:last-child {
-    align-items: flex-start; /* Alignement des boutons à gauche */
-    gap: 10px; /* Espacement vertical de 10px entre les boutons */
+rsor: not-allowed;
 }
 
 
