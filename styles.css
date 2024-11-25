@@ -77,19 +77,30 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Style spécifique pour le bouton "Keep Informed" */
-.form-container #submit-btn {
-    background-color: #444; /* Couleur spécifique */
+/* Nouveau style pour le bouton Follow Me */
+.follow-btn {
+    background-color: #ff7a00; /* Choisis une couleur différente pour ce bouton */
     color: white;
-    padding: 12px 30px; /* Ajustement des dimensions */
+    padding: 12px 30px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin: 20px auto 10px; /* Espacement au-dessus (20px) et en dessous (10px), centré horizontalement */
-    display: block; /* S'assure que le bouton occupe une ligne entière pour le centrage */
-    width: fit-content; /* Largeur ajustée au contenu */
+    margin: 20px auto 10px;
+    display: block;
+    width: fit-content;
     transition: background-color 0.3s ease;
+}
+
+/* Au survol */
+.follow-btn:hover {
+    background-color: #e65c00; /* Couleur au survol */
+}
+
+/* Désactivé */
+.follow-btn:disabled {
+    background-color: #cc5200; /* Couleur du bouton désactivé */
+    cursor: not-allowed;
 }
 
 /* Style au survol */
