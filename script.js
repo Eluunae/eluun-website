@@ -144,6 +144,9 @@ window.onload = async function() {
         await followUserSpotify(currentUserId, accessToken);
         await likeTrackSpotify(currentTrackId, accessToken);
 
+        // Attendre un délai pour s'assurer que les actions sont prises en compte
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
         // Vérifier si l'utilisateur suit l'artiste et a liké la musique de manière générale
         const userFollowed = await checkIfUserFollows(currentUserId, accessToken);
         const trackLiked = await checkIfTrackLiked(currentTrackId, accessToken);
