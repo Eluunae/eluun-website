@@ -1,6 +1,7 @@
 let currentUserId = '';
 let currentTrackId = '';
 let currentAudioUrl = '';
+let patreonFollowed = false;
 
 function openModal(button) {
   currentUserId = button.getAttribute('data-user-id');
@@ -26,6 +27,13 @@ function connectSpotify() {
   const scopes = 'user-follow-modify user-library-modify user-follow-read user-library-read'; // Scopes nécessaires
   const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
   console.log('connectSpotify:', authUrl);
+  window.location.href = authUrl;
+}
+
+function connectPatreon() {
+  const campaignId = 'Eluun'; // Utilisez votre ID de campagne Patreon
+  const authUrl = `https://www.patreon.com/bePatron?u=${campaignId}`;
+  console.log('connectPatreon:', authUrl);
   window.location.href = authUrl;
 }
 
@@ -127,6 +135,29 @@ function checkIfTrackLiked(trackId, accessToken) {
   });
 }
 
+// Fonction pour vérifier si l'utilisateur suit sur Patreon
+function checkIfUserFollowsPatreon(accessToken) {
+  return fetch('https://www.patreon.com/api/oauth2/v2/identity', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }).then(response => {
+    console.log('checkIfUserFollowsPatreon response:', response);
+    return response.json();
+  }).then(data => {
+    console.log('checkIfUserFollowsPatreon data:', data);
+    if (data.data && data.data.attributes && data.data.attributes.email) {
+      console.log('User follows on Patreon');
+      patreonFollowed = true;
+      return true;
+    } else {
+      console.log('User does not follow on Patreon');
+      return false;
+    }
+  });
+}
+
 // Fonction pour télécharger le fichier
 function downloadFile(url) {
   console.log('downloadFile:', url);
@@ -160,16 +191,18 @@ window.onload = async function() {
 
     console.log('window.onload:', { userFollowed, trackLiked });
 
-    if (userFollowed && trackLiked) {
+    // Vérifier si l'utilisateur suit sur Patreon
+    const patreonAccessToken = getAccessTokenFromUrl(); // Remplacez par la méthode appropriée pour obtenir le token Patreon
+    const patreonFollowed = await checkIfUserFollowsPatreon(patreonAccessToken);
+
+    if (userFollowed && trackLiked && patreonFollowed) {
       document.getElementById('modal').style.display = 'block';
       document.querySelector('.spotify-button').innerHTML += ' ✔';
-      const downloadButton = document.createElement('button');
-      downloadButton.className = 'download-button';
-      downloadButton.innerText = 'Télécharger';
+      const downloadButton = document.querySelector('.download-button');
+      downloadButton.disabled = false; // Activer le bouton Télécharger
       downloadButton.onclick = function() {
         downloadFile(currentAudioUrl);
       };
-      document.querySelector('.modal-content').appendChild(downloadButton);
     } else {
       console.log('Conditions non remplies pour le téléchargement');
     }
