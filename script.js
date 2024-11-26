@@ -73,6 +73,7 @@ function likeTrackSpotify(trackId, accessToken) {
 
 // Fonction pour vérifier si l'utilisateur suit votre compte
 function checkIfUserFollows(userId, accessToken) {
+    console.log('checkIfUserFollows: Checking userId', userId);
     return fetch(`https://api.spotify.com/v1/me/following/contains?type=user&ids=${userId}`, {
         method: 'GET',
         headers: {
@@ -92,6 +93,7 @@ function checkIfUserFollows(userId, accessToken) {
 
 // Fonction pour vérifier si l'utilisateur a liké la musique
 function checkIfTrackLiked(trackId, accessToken) {
+    console.log('checkIfTrackLiked: Checking trackId', trackId);
     return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, {
         method: 'GET',
         headers: {
@@ -124,6 +126,8 @@ function downloadFile(url) {
 window.onload = async function() {
     const accessToken = getAccessTokenFromUrl();
     if (accessToken) {
+        console.log('window.onload: currentUserId', currentUserId);
+        console.log('window.onload: currentTrackId', currentTrackId);
         const userFollowed = await checkIfUserFollows(currentUserId, accessToken);
         const trackLiked = await checkIfTrackLiked(currentTrackId, accessToken);
 
