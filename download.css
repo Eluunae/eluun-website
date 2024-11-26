@@ -59,7 +59,6 @@ body {
     background-position: center; /* Centrer l'image */
     filter: blur(5px); /* Réduire le flou */
     z-index: -1; /* Placer derrière le contenu */
-    border-radius: 10px;
 }
 
 .music-block-1::before {
@@ -90,7 +89,6 @@ body {
 .music-block h3 {
     margin: 0; /* Supprimer la marge par défaut */
     color: #ffffff; /* Couleur du texte */
-    z-index: 1; /* Placer au-dessus de l'image de fond */
 }
 
 .music-image {
@@ -111,7 +109,6 @@ body {
     margin-left: auto; /* Aligner le bouton à droite */
     display: block; /* Assurer que le bouton est un élément de bloc */
     z-index: 1; /* Placer au-dessus de l'image de fond */
-    border-radius: 5px;
 }
 
 .api-button:hover {
