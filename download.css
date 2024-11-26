@@ -45,7 +45,7 @@ body {
     align-items: center; /* Aligner les éléments verticalement */
     gap: 20px; /* Espacement entre les éléments */
     overflow: hidden; /* Masquer le débordement */
-    border-radius: 10px;
+    border-radius: 10px; /* Arrondir les coins */
 }
 
 .music-block::before {
@@ -132,7 +132,7 @@ body {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #090909; /* Couleur de fond similaire à la page */
     margin: 15% auto; /* Centrer verticalement et horizontalement */
     padding: 20px;
     border: 1px solid #888;
@@ -140,6 +140,7 @@ body {
     max-width: 600px; /* Largeur maximale */
     text-align: center; /* Centrer le texte */
     position: relative; /* Position relative pour la croix */
+    border-radius: 10px; /* Arrondir les coins */
 }
 
 .close {
