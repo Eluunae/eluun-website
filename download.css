@@ -1,6 +1,6 @@
 /* download.css */
 body {
-    background-color: #090909; /* Couleur de fond similaire à styles.css */
+    background-color: #050505; /* Couleur de fond similaire à styles.css */
     font-family: Arial, sans-serif;
     color: #ffffff; /* Couleur du texte */
     margin: 0;
@@ -13,7 +13,7 @@ body {
 }
 
 #downloadButton {
-    background-color: #007BFF;
+    background-color: #282828;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -21,9 +21,9 @@ body {
     font-size: 16px;
 }
 
-#downloadButton:hover {
+/*#downloadButton:hover {
     background-color: #0056b3;
-}
+}*/
 
 .music-column {
     display: flex;
@@ -36,7 +36,7 @@ body {
 .music-block {
     position: relative; /* Position relative pour le contenu */
     background-color: rgba(0, 0, 0, 0.8); /* Couleur de fond semi-transparente */
-    border: 2px solid rgba(24, 24, 24, 0.8); /* Couleur de la bordure semi-transparente */
+    border: px solid rgba(24, 24, 24, 0.8); /* Couleur de la bordure semi-transparente */
     padding: 20px;
     width: 80%;
     text-align: left; /* Aligner le texte à gauche */
@@ -100,7 +100,7 @@ body {
 }
 
 .api-button {
-    background-color: #007BFF; /* Couleur du bouton */
+    background-color: #171717; /* Couleur du bouton */
     color: white; /* Couleur du texte du bouton */
     border: none;
     padding: 10px 20px;
@@ -109,6 +109,7 @@ body {
     margin-left: auto; /* Aligner le bouton à droite */
     display: block; /* Assurer que le bouton est un élément de bloc */
     z-index: 1; /* Placer au-dessus de l'image de fond */
+    border-radius: 5px;
 }
 
 .api-button:hover {
@@ -130,7 +131,7 @@ body {
 
 .modal-content {
     background-color: #090909; /* Couleur de fond similaire à la page */
-    margin: 15% auto; /* Centrer verticalement et horizontalement */
+    margin: 18% auto; /* Centrer verticalement et horizontalement */
     padding: 20px;
     border: px solid #888;
     width: 80%;
@@ -162,6 +163,7 @@ body {
     justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .soundcloud-button {
@@ -171,6 +173,7 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
+    border-radius: 5px;
 }
 
 .spotify-button {
@@ -180,6 +183,7 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
+    border-radius: 5px;
 }
 
 .instagram-button {
@@ -189,6 +193,7 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
+    border-radius: 5px;
 }
 
 .patreon-button {
@@ -197,8 +202,10 @@ body {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
     font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 .download-button {
@@ -209,6 +216,8 @@ body {
     cursor: pointer;
     font-size: 16px;
     margin-top: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 .download-button:hover {
