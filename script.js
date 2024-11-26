@@ -82,7 +82,7 @@ function likeTrackSpotify(trackId, accessToken) {
 // Fonction pour vérifier si l'utilisateur suit votre compte
 function checkIfUserFollows(userId, accessToken) {
     console.log('checkIfUserFollows: Checking userId', userId);
-    return fetch(`https://api.spotify.com/v1/me/following/contains?type=user&ids=${userId}`, {
+    return fetch(`https://api.spotify.com/v1/me/following/contains?type=artist&ids=${userId}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`
