@@ -1,6 +1,7 @@
 // scripts.js
 
 const clientId = '7d4fe1c6125c4a4b8d63d6f3b9f46ed7'; // Remplacez par votre client_id
+const clientSecret = '72d0e6f7a3684eac9d32f3ad5666e849'
 const redirectUri = 'https://eluun.link/download'; // Remplacez par votre URI de redirection
 const scopes = 'user-follow-modify user-library-modify user-follow-read user-library-read'; // Scopes nécessaires
 
