@@ -1,15 +1,3 @@
-const SpotifyWebApi = require('spotify-web-api-node');
-
-const clientId = '7d4fe1c6125c4a4b8d63d6f3b9f46ed7'; // Remplacez par votre client_id
-const redirectUri = 'https://eluun.link/download'; // Remplacez par votre URI de redirection
-const scopes = ['user-follow-modify', 'user-library-modify', 'user-follow-read', 'user-library-read']; // Scopes nécessaires
-
-const spotifyApi = new SpotifyWebApi({
-  clientId: clientId,
-  clientSecret: clientSecret,
-  redirectUri: redirectUri
-});
-
 let currentUserId = '';
 let currentTrackId = '';
 let currentAudioUrl = '';
@@ -33,7 +21,10 @@ function closeModal() {
 }
 
 function connectSpotify() {
-  const authUrl = spotifyApi.createAuthorizeURL(scopes);
+  const clientId = '7d4fe1c6125c4a4b8d63d6f3b9f46ed7'; // Remplacez par votre client_id
+  const redirectUri = 'https://eluun.link/download'; // Remplacez par votre URI de redirection
+  const scopes = 'user-follow-modify user-library-modify user-follow-read user-library-read'; // Scopes nécessaires
+  const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
   console.log('connectSpotify:', authUrl);
   window.location.href = authUrl;
 }
@@ -49,72 +40,91 @@ function getAccessTokenFromUrl() {
 
 // Fonction pour suivre un utilisateur
 function followUserSpotify(userId, accessToken) {
-  spotifyApi.setAccessToken(accessToken);
-  return spotifyApi.followArtists([userId])
-    .then(response => {
-      console.log('followUserSpotify response:', response);
+  return fetch(`https://api.spotify.com/v1/me/following?type=artist&ids=${userId}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ids: [userId]
+    })
+  }).then(response => {
+    console.log('followUserSpotify response:', response);
+    if (response.ok) {
       console.log('User followed');
       return true;
-    })
-    .catch(error => {
-      console.error('Failed to follow user', error);
+    } else {
+      console.error('Failed to follow user');
       return false;
-    });
+    }
+  });
 }
 
 // Fonction pour liker une piste
 function likeTrackSpotify(trackId, accessToken) {
-  spotifyApi.setAccessToken(accessToken);
-  return spotifyApi.addToMySavedTracks([trackId])
-    .then(response => {
-      console.log('likeTrackSpotify response:', response);
+  return fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    }
+  }).then(response => {
+    console.log('likeTrackSpotify response:', response);
+    if (response.ok) {
       console.log('Track liked');
       return true;
-    })
-    .catch(error => {
-      console.error('Failed to like track', error);
+    } else {
+      console.error('Failed to like track');
       return false;
-    });
+    }
+  });
 }
 
 // Fonction pour vérifier si l'utilisateur suit un artiste
 function checkIfUserFollows(userId, accessToken) {
-  spotifyApi.setAccessToken(accessToken);
-  return spotifyApi.isFollowingArtists([userId])
-    .then(data => {
-      console.log('checkIfUserFollows data:', data.body);
-      if (data.body[0]) {
-        console.log('checkIfUserFollows: User is following');
-        return true;
-      } else {
-        console.log('checkIfUserFollows: User is not following');
-        return false;
-      }
-    })
-    .catch(error => {
-      console.error('Failed to check if user follows', error);
+  console.log('checkIfUserFollows: Checking userId', userId);
+  return fetch(`https://api.spotify.com/v1/me/following/contains?type=artist&ids=${userId}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }).then(response => {
+    console.log('checkIfUserFollows response:', response);
+    return response.json();
+  }).then(data => {
+    console.log('checkIfUserFollows data:', data);
+    if (data[0]) {
+      console.log('checkIfUserFollows: User is following');
+      return true;
+    } else {
+      console.log('checkIfUserFollows: User is not following');
       return false;
-    });
+    }
+  });
 }
 
 // Fonction pour vérifier si l'utilisateur a liké une piste
 function checkIfTrackLiked(trackId, accessToken) {
-  spotifyApi.setAccessToken(accessToken);
-  return spotifyApi.containsMySavedTracks([trackId])
-    .then(data => {
-      console.log('checkIfTrackLiked data:', data.body);
-      if (data.body[0]) {
-        console.log('checkIfTrackLiked: Track is liked');
-        return true;
-      } else {
-        console.log('checkIfTrackLiked: Track is not liked');
-        return false;
-      }
-    })
-    .catch(error => {
-      console.error('Failed to check if track is liked', error);
+  console.log('checkIfTrackLiked: Checking trackId', trackId);
+  return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }).then(response => {
+    console.log('checkIfTrackLiked response:', response);
+    return response.json();
+  }).then(data => {
+    console.log('checkIfTrackLiked data:', data);
+    if (data[0]) {
+      console.log('checkIfTrackLiked: Track is liked');
+      return true;
+    } else {
+      console.log('checkIfTrackLiked: Track is not liked');
       return false;
-    });
+    }
+  });
 }
 
 // Fonction pour télécharger le fichier
@@ -122,7 +132,7 @@ function downloadFile(url) {
   console.log('downloadFile:', url);
   const a = document.createElement('a');
   a.href = url;
-  a.download = '';
+  a.download = url.split('/').pop(); // Utiliser le nom de fichier à partir de l'URL
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
