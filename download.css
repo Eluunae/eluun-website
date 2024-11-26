@@ -132,7 +132,7 @@ body {
     background-color: #090909; /* Couleur de fond similaire à la page */
     margin: 15% auto; /* Centrer verticalement et horizontalement */
     padding: 20px;
-    border: 1px solid #888;
+    border: px solid #888;
     width: 80%;
     max-width: 600px; /* Largeur maximale */
     text-align: center; /* Centrer le texte */
