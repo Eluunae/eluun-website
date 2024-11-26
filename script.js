@@ -91,6 +91,7 @@ function checkIfUserFollows(userId, accessToken) {
         console.log('checkIfUserFollows response:', response);
         return response.json();
     }).then(data => {
+        console.log('checkIfUserFollows data:', data);
         if (data[0]) {
             console.log('checkIfUserFollows: User is following');
             return true;
@@ -113,6 +114,7 @@ function checkIfTrackLiked(trackId, accessToken) {
         console.log('checkIfTrackLiked response:', response);
         return response.json();
     }).then(data => {
+        console.log('checkIfTrackLiked data:', data);
         if (data[0]) {
             console.log('checkIfTrackLiked: Track is liked');
             return true;
