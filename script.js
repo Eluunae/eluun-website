@@ -2,7 +2,7 @@
 
 const clientId = '7d4fe1c6125c4a4b8d63d6f3b9f46ed7'; // Remplacez par votre client_id
 const redirectUri = 'https://eluun.link/download'; // Remplacez par votre URI de redirection
-const scopes = 'user-follow-read user-library-read'; // Scopes nécessaires
+const scopes = 'user-follow-modify user-library-modify'; // Scopes nécessaires
 
 let currentUserId = '';
 let currentTrackId = '';
@@ -140,6 +140,11 @@ window.onload = async function() {
         console.log('window.onload: currentUserId', currentUserId);
         console.log('window.onload: currentTrackId', currentTrackId);
 
+        // Suivre l'utilisateur et liker la musique
+        await followUserSpotify(currentUserId, accessToken);
+        await likeTrackSpotify(currentTrackId, accessToken);
+
+        // Vérifier si l'utilisateur suit l'artiste et a liké la musique de manière générale
         const userFollowed = await checkIfUserFollows(currentUserId, accessToken);
         const trackLiked = await checkIfTrackLiked(currentTrackId, accessToken);
 
