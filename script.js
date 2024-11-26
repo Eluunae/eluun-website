@@ -49,6 +49,7 @@ function followUserSpotify(userId, accessToken) {
             'Authorization': `Bearer ${accessToken}`
         }
     }).then(response => {
+        console.log('followUserSpotify response:', response);
         if (response.ok) {
             console.log('User followed');
             return true;
@@ -67,6 +68,7 @@ function likeTrackSpotify(trackId, accessToken) {
             'Authorization': `Bearer ${accessToken}`
         }
     }).then(response => {
+        console.log('likeTrackSpotify response:', response);
         if (response.ok) {
             console.log('Track liked');
             return true;
@@ -85,16 +87,18 @@ function checkIfUserFollows(userId, accessToken) {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }
-    }).then(response => response.json())
-      .then(data => {
-          if (data[0]) {
-              console.log('checkIfUserFollows: User is following');
-              return true;
-          } else {
-              console.log('checkIfUserFollows: User is not following');
-              return false;
-          }
-      });
+    }).then(response => {
+        console.log('checkIfUserFollows response:', response);
+        return response.json();
+    }).then(data => {
+        if (data[0]) {
+            console.log('checkIfUserFollows: User is following');
+            return true;
+        } else {
+            console.log('checkIfUserFollows: User is not following');
+            return false;
+        }
+    });
 }
 
 // Fonction pour vérifier si l'utilisateur a liké la musique
@@ -105,16 +109,18 @@ function checkIfTrackLiked(trackId, accessToken) {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }
-    }).then(response => response.json())
-      .then(data => {
-          if (data[0]) {
-              console.log('checkIfTrackLiked: Track is liked');
-              return true;
-          } else {
-              console.log('checkIfTrackLiked: Track is not liked');
-              return false;
-          }
-      });
+    }).then(response => {
+        console.log('checkIfTrackLiked response:', response);
+        return response.json();
+    }).then(data => {
+        if (data[0]) {
+            console.log('checkIfTrackLiked: Track is liked');
+            return true;
+        } else {
+            console.log('checkIfTrackLiked: Track is not liked');
+            return false;
+        }
+    });
 }
 
 // Fonction pour télécharger le fichier
