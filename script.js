@@ -43,11 +43,15 @@ function getAccessTokenFromUrl() {
 
 // Fonction pour suivre un utilisateur
 function followUserSpotify(userId, accessToken) {
-    return fetch(`https://api.spotify.com/v1/me/following?type=user&ids=${userId}`, {
+    return fetch(`https://api.spotify.com/v1/me/following?type=artist&ids=${userId}`, {
         method: 'PUT',
         headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ids: [userId]
+        })
     }).then(response => {
         console.log('followUserSpotify response:', response);
         if (response.ok) {
