@@ -13,6 +13,12 @@ function openModal(button) {
     currentTrackId = button.getAttribute('data-track-id');
     currentAudioUrl = button.getAttribute('data-audio-url');
     console.log('openModal:', { currentUserId, currentTrackId, currentAudioUrl });
+
+    // Stocker les valeurs dans le stockage local
+    localStorage.setItem('currentUserId', currentUserId);
+    localStorage.setItem('currentTrackId', currentTrackId);
+    localStorage.setItem('currentAudioUrl', currentAudioUrl);
+
     document.getElementById('modal').style.display = 'block';
 }
 
@@ -126,8 +132,14 @@ function downloadFile(url) {
 window.onload = async function() {
     const accessToken = getAccessTokenFromUrl();
     if (accessToken) {
+        // Récupérer les valeurs depuis le stockage local
+        currentUserId = localStorage.getItem('currentUserId');
+        currentTrackId = localStorage.getItem('currentTrackId');
+        currentAudioUrl = localStorage.getItem('currentAudioUrl');
+
         console.log('window.onload: currentUserId', currentUserId);
         console.log('window.onload: currentTrackId', currentTrackId);
+
         const userFollowed = await checkIfUserFollows(currentUserId, accessToken);
         const trackLiked = await checkIfTrackLiked(currentTrackId, accessToken);
 
