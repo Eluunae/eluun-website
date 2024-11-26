@@ -2,14 +2,17 @@
 
 const clientId = '7d4fe1c6125c4a4b8d63d6f3b9f46ed7'; // Remplacez par votre client_id
 const redirectUri = 'https://eluun.link/download'; // Remplacez par votre URI de redirection
-const scopes = 'user-follow-modify user-library-modify'; // Scopes nécessaires
+const scopes = 'user-follow-read user-library-read'; // Scopes nécessaires
 
 let currentUserId = '';
 let currentTrackId = '';
+let currentAudioUrl = '';
 
 function openModal(button) {
     currentUserId = button.getAttribute('data-user-id');
     currentTrackId = button.getAttribute('data-track-id');
+    currentAudioUrl = button.getAttribute('data-audio-url');
+    console.log('openModal:', { currentUserId, currentTrackId, currentAudioUrl });
     document.getElementById('modal').style.display = 'block';
 }
 
@@ -19,6 +22,7 @@ function closeModal() {
 
 function connectSpotify() {
     const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
+    console.log('connectSpotify:', authUrl);
     window.location.href = authUrl;
 }
 
@@ -26,12 +30,14 @@ function connectSpotify() {
 function getAccessTokenFromUrl() {
     const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
-    return params.get('access_token');
+    const accessToken = params.get('access_token');
+    console.log('getAccessTokenFromUrl:', accessToken);
+    return accessToken;
 }
 
 // Fonction pour suivre un utilisateur
 function followUserSpotify(userId, accessToken) {
-    fetch(`https://api.spotify.com/v1/me/following?type=user&ids=${userId}`, {
+    return fetch(`https://api.spotify.com/v1/me/following?type=user&ids=${userId}`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -39,15 +45,17 @@ function followUserSpotify(userId, accessToken) {
     }).then(response => {
         if (response.ok) {
             console.log('User followed');
+            return true;
         } else {
             console.error('Failed to follow user');
+            return false;
         }
     });
 }
 
 // Fonction pour ajouter une musique aux favoris
 function likeTrackSpotify(trackId, accessToken) {
-    fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
+    return fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -55,15 +63,17 @@ function likeTrackSpotify(trackId, accessToken) {
     }).then(response => {
         if (response.ok) {
             console.log('Track liked');
+            return true;
         } else {
             console.error('Failed to like track');
+            return false;
         }
     });
 }
 
 // Fonction pour vérifier si l'utilisateur suit votre compte
 function checkIfUserFollows(userId, accessToken) {
-    fetch(`https://api.spotify.com/v1/me/following/contains?type=user&ids=${userId}`, {
+    return fetch(`https://api.spotify.com/v1/me/following/contains?type=user&ids=${userId}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -71,16 +81,18 @@ function checkIfUserFollows(userId, accessToken) {
     }).then(response => response.json())
       .then(data => {
           if (data[0]) {
-              console.log('User is following');
+              console.log('checkIfUserFollows: User is following');
+              return true;
           } else {
-              console.log('User is not following');
+              console.log('checkIfUserFollows: User is not following');
+              return false;
           }
       });
 }
 
 // Fonction pour vérifier si l'utilisateur a liké la musique
 function checkIfTrackLiked(trackId, accessToken) {
-    fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, {
+    return fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -88,22 +100,47 @@ function checkIfTrackLiked(trackId, accessToken) {
     }).then(response => response.json())
       .then(data => {
           if (data[0]) {
-              console.log('Track is liked');
+              console.log('checkIfTrackLiked: Track is liked');
+              return true;
           } else {
-              console.log('Track is not liked');
+              console.log('checkIfTrackLiked: Track is not liked');
+              return false;
           }
       });
 }
 
+// Fonction pour télécharger le fichier
+function downloadFile(url) {
+    console.log('downloadFile:', url);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
 // Exemple d'utilisation après redirection
-window.onload = function() {
+window.onload = async function() {
     const accessToken = getAccessTokenFromUrl();
     if (accessToken) {
-        followUserSpotify(currentUserId, accessToken); // Utiliser l'ID utilisateur depuis le HTML
-        likeTrackSpotify(currentTrackId, accessToken); // Utiliser l'ID de la piste depuis le HTML
+        const userFollowed = await checkIfUserFollows(currentUserId, accessToken);
+        const trackLiked = await checkIfTrackLiked(currentTrackId, accessToken);
 
-        // Vérifier si l'utilisateur suit votre compte et a liké la musique
-        checkIfUserFollows(currentUserId, accessToken);
-        checkIfTrackLiked(currentTrackId, accessToken);
+        console.log('window.onload:', { userFollowed, trackLiked });
+
+        if (userFollowed && trackLiked) {
+            document.getElementById('modal').style.display = 'block';
+            document.querySelector('.spotify-button').innerHTML += ' ✔';
+            const downloadButton = document.createElement('button');
+            downloadButton.className = 'download-button';
+            downloadButton.innerText = 'Télécharger';
+            downloadButton.onclick = function() {
+                downloadFile(currentAudioUrl);
+            };
+            document.querySelector('.modal-content').appendChild(downloadButton);
+        } else {
+            console.log('Conditions non remplies pour le téléchargement');
+        }
     }
 };
