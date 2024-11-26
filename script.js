@@ -32,7 +32,7 @@ function connectSpotify() {
 
 function connectPatreon() {
   const campaignId = 'Eluun'; // Utilisez votre ID de campagne Patreon
-  const authUrl = `https://www.patreon.com/bePatron?u=${campaignId}`;
+  const authUrl = `https://www.patreon.com/c/${campaignId}`;
   console.log('connectPatreon:', authUrl);
   window.location.href = authUrl;
 }
