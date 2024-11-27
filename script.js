@@ -1,7 +1,6 @@
 let currentUserId = '';
 let currentTrackId = '';
 let currentAudioUrl = '';
-let patreonFollowed = false;
 
 function openModal(button) {
   currentUserId = button.getAttribute('data-user-id');
@@ -134,28 +133,36 @@ function checkIfTrackLiked(trackId, accessToken) {
   });
 }
 
-// Fonction pour vérifier si l'utilisateur suit sur Patreon
-function checkIfUserFollowsPatreon(accessToken) {
-  return fetch('https://www.patreon.com/api/oauth2/v2/identity', {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  }).then(response => {
-    console.log('checkIfUserFollowsPatreon response:', response);
-    return response.json();
-  }).then(data => {
-    console.log('checkIfUserFollowsPatreon data:', data);
-    if (data.data && data.data.attributes && data.data.attributes.email) {
-      console.log('User follows on Patreon');
-      patreonFollowed = true;
-      return true;
-    } else {
-      console.log('User does not follow on Patreon');
-      return false;
-    }
-  });
+// Fonction pour vérifier si l'utilisateur a rejoint le channel Telegram
+async function checkIfUserJoinedTelegram(userId) {
+  const response = await fetch(`https://api.telegram.org/bot<your_bot_token>/getChatMember?chat_id=@eluun-news&user_id=${userId}`);
+  const data = await response.json();
+  return data.result && data.result.status === 'member';
 }
+
+// Fonction pour obtenir l'ID utilisateur Telegram (à implémenter)
+function getTelegramUserId() {
+  // Implémentez cette fonction pour obtenir l'ID utilisateur Telegram
+  // Cela peut nécessiter une interaction avec votre bot Telegram
+  return 'user_id'; // Remplacez par la logique pour obtenir l'ID utilisateur
+}
+
+// Gestionnaire d'événements pour le bouton Telegram
+document.getElementById('telegramButton').addEventListener('click', async function() {
+  window.open('https://t.me/eluun-news', '_blank');
+
+  // Attendre quelques secondes pour que l'utilisateur rejoigne le channel
+  setTimeout(async function() {
+    const userId = getTelegramUserId();
+    const isJoined = await checkIfUserJoinedTelegram(userId);
+
+    if (isJoined) {
+      window.location.href = 'download_page_url'; // Remplacez par l'URL de votre page de téléchargement
+    } else {
+      alert('Veuillez rejoindre le channel Telegram pour continuer.');
+    }
+  }, 5000); // Attendre 5 secondes
+});
 
 // Fonction pour télécharger le fichier
 function downloadFile(url) {
