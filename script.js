@@ -31,7 +31,7 @@ function connectSpotify() {
 }
 
 function connectTelegram() {
-  const telegramUrl = 'https://t.me/your_telegram_channel'; // Remplacez par l'URL de votre chaîne Telegram
+  const telegramUrl = 'https://t.me/eluun_news'; // Remplacez par l'URL de votre chaîne Telegram
   console.log('connectTelegram:', telegramUrl);
   window.location.href = telegramUrl;
 }
