@@ -30,11 +30,10 @@ function connectSpotify() {
   window.location.href = authUrl;
 }
 
-function connectPatreon() {
-  const campaignId = 'Eluun'; // Utilisez votre ID de campagne Patreon
-  const authUrl = `https://www.patreon.com/c/${campaignId}`;
-  console.log('connectPatreon:', authUrl);
-  window.location.href = authUrl;
+function connectTelegram() {
+  const telegramUrl = 'https://t.me/your_telegram_channel'; // Remplacez par l'URL de votre chaîne Telegram
+  console.log('connectTelegram:', telegramUrl);
+  window.location.href = telegramUrl;
 }
 
 // Fonction pour récupérer le token d'accès depuis l'URL de redirection

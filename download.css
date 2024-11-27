@@ -196,16 +196,19 @@ body {
     border-radius: 5px;
 }
 
-.patreon-button {
-    background-color: #555555; /* Couleur Patreon */
+/* download.css */
+.telegram-button {
+    background-color: #0088cc; /* Couleur de Telegram */
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    margin-top: 20px;
     font-size: 16px;
     border-radius: 5px;
-    margin-bottom: 20px;
+}
+
+.telegram-button:hover {
+    background-color: #006699; /* Couleur de survol pour Telegram */
 }
 
 .download-button {
