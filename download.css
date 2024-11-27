@@ -186,16 +186,6 @@ body {
     border-radius: 5px;
 }
 
-.instagram-button {
-    background-color: #E1306C; /* Couleur Instagram */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
 /* download.css */
 .telegram-button {
     background-color: #0088cc; /* Couleur de Telegram */
