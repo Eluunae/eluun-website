@@ -2,11 +2,11 @@
 const axios = require('axios');
 
 exports.handler = async function(event) {
-  console.log('Début du processus');
+  console.log('1. Début de process-discord');
   
   try {
     const { code } = JSON.parse(event.body);
-    console.log('Code reçu:', code);
+    console.log('2. Code reçu:', code);
 
     // 1. Obtenir le token
     const tokenResponse = await axios.post('https://discord.com/api/oauth2/token',
@@ -48,21 +48,25 @@ exports.handler = async function(event) {
       }
     );
 
-    console.log('Utilisateur ajouté avec rôle');
-
-    // Une fois tout terminé, rediriger vers la page d'accueil avec success=true
+    // Après l'ajout du rôle réussi
+    console.log('5. Utilisateur ajouté avec rôle');
+    
+    // Redirection vers la page d'accueil avec paramètre success
     return {
       statusCode: 302,
       headers: {
-        'Location': 'https://eluun.link?success=true'
+        'Location': 'https://eluun.link?success=true',
+        'Cache-Control': 'no-cache'
       }
     };
 
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Erreur détaillée:', error.response?.data || error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message })
+      headers: {
+        'Location': 'https://eluun.link?error=true'
+      }
     };
   }
   
