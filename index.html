@@ -34,7 +34,7 @@
                     <br>
                     Eluun</p>
 
-                    <button onclick="joinDiscord()">Join us on Discord</button>
+                    <button onclick="loginWithDiscord()">Join us on Discord</button>
 
 <script>
   function getQueryParam(param) {
@@ -49,6 +49,16 @@
       joinDiscord(userId);
     }
   };
+
+  function loginWithDiscord() {
+    const clientId = 'YOUR_CLIENT_ID'; // Remplacez par votre client_id Discord
+    const redirectUri = encodeURIComponent('https://votre-site.netlify.app/callback');
+    const scope = encodeURIComponent('identify');
+    const responseType = 'code';
+
+    const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
+    window.location.href = url;
+  }
 
   function joinDiscord(userId) {
     console.log('joinDiscord function called');
