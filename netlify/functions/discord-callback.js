@@ -19,7 +19,7 @@ exports.handler = async function(event, context) {
 };
 
 // netlify/functions/discord-callback.js
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 const handler = async (event) => {
   const code = event.queryStringParameters.code;
@@ -32,24 +32,26 @@ const handler = async (event) => {
   }
 
   try {
-    const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
+    // Échanger le code contre un token
+    const tokenResponse = await axios.post('https://discord.com/api/oauth2/token', 
+      new URLSearchParams({
         client_id: process.env.DISCORD_CLIENT_ID,
         client_secret: process.env.DISCORD_CLIENT_SECRET,
         code: code,
         grant_type: 'authorization_code',
         redirect_uri: 'https://eluun.link/.netlify/functions/discord-callback'
-      })
-    });
+      }), {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      }
+    );
 
-    const tokenData = await tokenResponse.json();
-    
-    await fetch(
+    const tokenData = tokenResponse.data;
+
+    // Ajouter le rôle
+    await axios.put(
       `https://discord.com/api/guilds/${process.env.DISCORD_GUILD_ID}/members/${tokenData.user.id}/roles/${process.env.DISCORD_ROLE_ID}`,
+      {},
       {
-        method: 'PUT',
         headers: {
           Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
           'Content-Type': 'application/json'
@@ -65,7 +67,7 @@ const handler = async (event) => {
     };
 
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error details:', error.response?.data || error.message);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message })
