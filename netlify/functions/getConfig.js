@@ -14,12 +14,11 @@ exports.handler = async function() {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'Cache-Control': 'no-store'
+        'Access-Control-Allow-Methods': 'GET'
       },
       body: JSON.stringify({
         clientId: process.env.DISCORD_CLIENT_ID,
-        redirectUri: 'https://eluun.link/callback',
-        scope: 'identify guilds.join'
+        redirectUri: 'https://eluun.link/callback'
       })
     };
   } catch (error) {

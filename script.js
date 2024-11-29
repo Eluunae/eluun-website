@@ -180,31 +180,24 @@ async function getQueryParam(param) {
 
 async function handleDiscordAuth() {
     try {
-        // Basic error handling
-        if (!window.fetch) {
-            throw new Error('Fetch not supported');
-        }
-
-        // Get config with error handling
-        let configResponse;
-        try {
-            configResponse = await fetch('/.netlify/functions/getConfig');
-            if (!configResponse.ok) {
-                throw new Error(`Config fetch failed: ${configResponse.status}`);
+        console.log('Starting Discord auth...');
+        const response = await fetch('/.netlify/functions/getConfig', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
             }
-        } catch (fetchError) {
-            console.error('Fetch error:', fetchError);
-            throw new Error('Failed to connect to server');
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const config = await configResponse.json();
+        const config = await response.json();
+        console.log('Config received:', { 
+            hasClientId: !!config.clientId,
+            redirectUri: config.redirectUri 
+        });
 
-        // Validate config
-        if (!config.clientId || !config.redirectUri) {
-            throw new Error('Invalid config received');
-        }
-
-        // Create Discord auth URL
         const params = new URLSearchParams({
             client_id: config.clientId,
             redirect_uri: config.redirectUri,
@@ -213,17 +206,14 @@ async function handleDiscordAuth() {
             state: crypto.randomUUID()
         });
 
-        // Store state for validation
-        sessionStorage.setItem('discord_state', params.get('state'));
-
-        // Redirect to Discord
         const authUrl = `https://discord.com/oauth2/authorize?${params}`;
-        console.log('Redirecting to:', authUrl);
+        console.log('Auth URL:', authUrl);
+        
         window.location.href = authUrl;
 
     } catch (error) {
-        console.error('Discord auth error:', error);
-        alert('Failed to connect to Discord. Please try again.');
+        console.error('Auth error:', error);
+        alert('Connection error. Please check console for details.');
     }
 }
 
