@@ -22,6 +22,13 @@ exports.handler = async (event, context) => {
   const userId = event.queryStringParameters.userId;
   console.log('User ID:', userId);
 
+  if (!userId) {
+    return {
+      statusCode: 400,
+      body: 'User ID is missing.',
+    };
+  }
+
   try {
     const guild = await client.guilds.fetch(guildId);
     console.log('Guild fetched:', guild.name);
