@@ -21,7 +21,7 @@ exports.handler = async function(event, context) {
 // netlify/functions/discord-callback.js
 const fetch = require('node-fetch');
 
-exports.handler = async function(event) {
+const handler = async (event) => {
   const code = event.queryStringParameters.code;
   
   if (!code) {
@@ -72,3 +72,5 @@ exports.handler = async function(event) {
     };
   }
 };
+
+module.exports = { handler };
