@@ -38,24 +38,23 @@
         </div>
     </section>
 
-    <!-- Bloc flottant -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div class="modal-buttons">
-                <button class="soundcloud-button" onclick="connectSoundCloud()">SoundCloud</button>
-                <div style="display: flex; align-items: center;"><span>or</span></div>
-                <button class="spotify-button" onclick="connectSpotify()">Spotify</button>
-                <div style="display: flex; align-items: center;"><span>or</span></div>
-                <button class="instagram-button">Instagram</button>
-            </div>
-            <div style="align-items: center;"><span>and</span></div>
-            <div><button class="patreon-button">Patreon (free)</button></div>
-            
+<!-- Bloc flottant -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-buttons">
+            <button class="soundcloud-button" onclick="connectSoundCloud()" disabled>SoundCloud</button>
+            <div style="display: flex; align-items: center;"><span>or</span></div>
+            <button class="spotify-button" onclick="connectSpotify()" disabled>Spotify</button>
+            <div style="display: flex; align-items: center;"><span>or</span></div>
+            <button class="instagram-button" disabled>Instagram</button>
         </div>
+        <div style="align-items: center;"><span>and</span></div>
+        <div><button class="patreon-button">Patreon (free)</button></div>
     </div>
+</div>
     
-    
+
 
     <script src="script.js"></script>
 </body>
