@@ -51,25 +51,24 @@ exports.handler = async function(event) {
     // Après l'ajout du rôle réussi
     console.log('5. Utilisateur ajouté avec rôle');
     
-    // Redirection vers la page d'accueil avec paramètre success
     return {
-        console.log('Redirection');
-      statusCode: 200,
-      body: JSON.stringify({ 
-        success: true,
-        message: 'Utilisateur ajouté au serveur avec le rôle',
-        redirect: 'https://eluun.link?success=true'
-      })
-    };
-
-  } catch (error) {
-    console.error('Erreur détaillée:', error.response?.data || error);
-    return {
-      statusCode: 500,
-      headers: {
-        'Location': 'https://eluun.link?error=true'
-      }
-    };
-  }
+        statusCode: 200,
+        body: JSON.stringify({ 
+          success: true,
+          message: 'Token obtenu avec succès'
+          message: 'Utilisateur ajouté au serveur avec le rôle'
+        })
+      };
   
+    } catch (error) {
+      console.error('Erreur complète:', error);
+      console.error('Erreur:', error.response?.data || error.message);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ 
+          error: error.message,
+          details: error.response?.data 
+        })
+      };
+    }
 };
