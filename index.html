@@ -118,20 +118,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const code = urlParams.get('code');
   
   if (code) {
+    console.log('Code reçu:', code);
+    
     fetch('/.netlify/functions/process-discord', {
       method: 'POST',
-      body: JSON.stringify({ code }),
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify({ code: code })
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
+      console.log('Réponse:', data);
       if (data.success) {
         window.location.href = '/';
       }
     })
-    .catch(console.error);
+    .catch(error => {
+      console.error('Erreur:', error);
+    });
   }
 });
 </script>
