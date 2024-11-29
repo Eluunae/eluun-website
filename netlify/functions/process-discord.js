@@ -53,11 +53,13 @@ exports.handler = async function(event) {
     
     // Redirection vers la page d'accueil avec paramètre success
     return {
-      statusCode: 302,
-      headers: {
-        'Location': 'https://eluun.link?success=true',
-        'Cache-Control': 'no-cache'
-      }
+        console.log('Redirection');
+      statusCode: 200,
+      body: JSON.stringify({ 
+        success: true,
+        message: 'Utilisateur ajouté au serveur avec le rôle',
+        redirect: 'https://eluun.link?success=true'
+      })
     };
 
   } catch (error) {
