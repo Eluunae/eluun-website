@@ -53,14 +53,20 @@
       if (!response.ok) throw new Error('Config fetch failed');
       
       const config = await response.json();
+      if (!config.clientId || !config.redirectUri) {
+        throw new Error('Missing configuration');
+      }
+
       const clientId = config.clientId;
       const redirectUri = encodeURIComponent(config.redirectUri);
       const scope = 'identify guilds.join';
       
       const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
+      console.log('Auth URL:', url); // Pour le débogage
       window.location.href = url;
     } catch (error) {
       console.error('Discord auth error:', error);
+      alert('Une erreur est survenue lors de l\'authentification Discord');
     }
   }
 
