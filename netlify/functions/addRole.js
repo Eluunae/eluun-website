@@ -2,9 +2,9 @@
 const { Client, Intents } = require('discord.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
-const token = process.env.DISCORD_BOT_TOKEN;
-const guildId = process.env.DISCORD_GUILD_ID;
-const roleId = process.env.DISCORD_ROLE_ID;
+const token = process.env.MTMxMTk3NjMwMTM1MTAxNDQ0Mg.GlP4Sw.RhDs6nsFFLucxXu4wk_0j0A1fZJ5OvtpUZZ_UE;
+const guildId = process.env.1174313475552591933;
+const roleId = process.env.1311962320481812582;
 
 client.login(token);
 
