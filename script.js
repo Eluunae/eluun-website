@@ -31,11 +31,7 @@ function connectSpotify() {
 
 // Fonction pour récupérer le token d'accès depuis l'URL de redirection
 function getAccessTokenFromUrl() {
-  const hash = window.location.hash.substring(1);
-  const params = new URLSearchParams(hash);
-  const accessToken = params.get('access_token');
-  console.log('getAccessTokenFromUrl:', accessToken);
-  return accessToken;
+  return null;
 }
 
 // Fonction pour suivre un utilisateur
@@ -176,57 +172,84 @@ window.onload = async function() {
   }
 };
 
+// Séparer les logiques Spotify et Discord
+async function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
 async function handleDiscordAuth() {
     try {
-        // Vérifier si on est sur la page de callback
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-        
-        if (code) {
-            // Si on a un code, on l'échange contre un token
-            const response = await fetch('/.netlify/functions/callback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ code })
-            });
-            
-            const data = await response.json();
-            if (data.error) {
-                throw new Error(data.error);
-            }
-            
-            window.location.href = '/';
-            return;
+        // Basic error handling
+        if (!window.fetch) {
+            throw new Error('Fetch not supported');
         }
 
-        // Si pas de code, initier l'auth
-        const configResponse = await fetch('/.netlify/functions/getConfig');
+        // Get config with error handling
+        let configResponse;
+        try {
+            configResponse = await fetch('/.netlify/functions/getConfig');
+            if (!configResponse.ok) {
+                throw new Error(`Config fetch failed: ${configResponse.status}`);
+            }
+        } catch (fetchError) {
+            console.error('Fetch error:', fetchError);
+            throw new Error('Failed to connect to server');
+        }
+
         const config = await configResponse.json();
-        
-        // Création de l'URL d'autorisation selon la doc Discord
-        const state = Math.random().toString(36).substring(7); // Sécurité CSRF
-        const url = new URL('https://discord.com/oauth2/authorize');
-        url.searchParams.append('response_type', 'code');
-        url.searchParams.append('client_id', config.clientId);
-        url.searchParams.append('scope', 'identify guilds.join');
-        url.searchParams.append('redirect_uri', config.redirectUri);
-        url.searchParams.append('state', state);
-        
-        // Stockage du state pour vérification ultérieure
-        sessionStorage.setItem('discord_state', state);
-        
-        window.location.href = url.toString();
+
+        // Validate config
+        if (!config.clientId || !config.redirectUri) {
+            throw new Error('Invalid config received');
+        }
+
+        // Create Discord auth URL
+        const params = new URLSearchParams({
+            client_id: config.clientId,
+            redirect_uri: config.redirectUri,
+            response_type: 'code',
+            scope: 'identify guilds.join',
+            state: crypto.randomUUID()
+        });
+
+        // Store state for validation
+        sessionStorage.setItem('discord_state', params.get('state'));
+
+        // Redirect to Discord
+        const authUrl = `https://discord.com/oauth2/authorize?${params}`;
+        console.log('Redirecting to:', authUrl);
+        window.location.href = authUrl;
+
     } catch (error) {
         console.error('Discord auth error:', error);
+        alert('Failed to connect to Discord. Please try again.');
     }
 }
 
-// Ajouter un écouteur pour le chargement de la page
-window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('code')) {
-        handleDiscordAuth();
+// Handle callback on load
+window.addEventListener('load', async () => {
+    const code = await getQueryParam('code');
+    const state = await getQueryParam('state');
+    
+    if (code && state) {
+        const savedState = sessionStorage.getItem('discord_state');
+        if (state === savedState) {
+            try {
+                const response = await fetch('/.netlify/functions/callback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Callback failed');
+                }
+                
+                console.log('Auth successful');
+            } catch (error) {
+                console.error('Callback error:', error);
+            }
+        }
     }
 });
