@@ -38,11 +38,22 @@
 
 <script>
   function joinDiscord() {
+    console.log('joinDiscord function called');
     const userId = 'USER_DISCORD_ID'; // Remplacez par l'ID utilisateur Discord
+    console.log('User ID:', userId);
+
     fetch(`/.netlify/functions/addRole?userId=${userId}`)
-      .then(response => response.text())
-      .then(data => alert(data))
-      .catch(error => console.error('Error:', error));
+      .then(response => {
+        console.log('Fetch response received');
+        return response.text();
+      })
+      .then(data => {
+        console.log('Response data:', data);
+        alert(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 </script>
 
