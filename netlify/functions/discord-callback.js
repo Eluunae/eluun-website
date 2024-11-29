@@ -19,9 +19,9 @@ exports.handler = async function(event, context) {
 };
 
 // netlify/functions/discord-callback.js
-import fetch from 'node-fetch';  // Utilisation de import au lieu de require
+const fetch = require('node-fetch');
 
-export async function handler(event) {
+exports.handler = async function(event) {
   const code = event.queryStringParameters.code;
   
   if (!code) {
@@ -45,21 +45,9 @@ export async function handler(event) {
     });
 
     const tokenData = await tokenResponse.json();
-    console.log('Token data:', tokenData); // Debug log
-
-    // 2. Obtenir les infos utilisateur
-    const userResponse = await fetch('https://discord.com/api/users/@me', {
-      headers: {
-        Authorization: `Bearer ${tokenData.access_token}`
-      }
-    });
-
-    const userData = await userResponse.json();
-    console.log('User data:', userData); // Debug log
-
-    // 3. Ajouter le rôle
-    const roleResponse = await fetch(
-      `https://discord.com/api/guilds/${process.env.DISCORD_GUILD_ID}/members/${userData.id}/roles/${process.env.DISCORD_ROLE_ID}`,
+    
+    await fetch(
+      `https://discord.com/api/guilds/${process.env.DISCORD_GUILD_ID}/members/${tokenData.user.id}/roles/${process.env.DISCORD_ROLE_ID}`,
       {
         method: 'PUT',
         headers: {
@@ -69,7 +57,6 @@ export async function handler(event) {
       }
     );
 
-    // 4. Redirection finale
     return {
       statusCode: 302,
       headers: {
@@ -84,4 +71,4 @@ export async function handler(event) {
       body: JSON.stringify({ error: error.message })
     };
   }
-}
+};
