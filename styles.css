@@ -321,6 +321,7 @@ button .button-icon img {
 .discord-btn, .return-btn {
   display: flex;
   align-items: center;
+  justify-content: center; /* Ajoute le centrage horizontal */
   gap: 10px;
   padding: 10px 20px;
   border-radius: 5px;
