@@ -1,8 +1,7 @@
 [build]
-  functions = "netlify/functions"  # Ceci doit pointer vers le bon dossier des fonctions
-  node_version = "14"
+  functions = "functions"
 
 [[redirects]]
-  from = "/.netlify/functions/*"
+  from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200

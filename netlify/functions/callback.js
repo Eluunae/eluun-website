@@ -4,49 +4,63 @@ exports.handler = async (event, context) => {
   const code = event.queryStringParameters.code;
   const clientId = process.env.DISCORD_CLIENT_ID;
   const clientSecret = process.env.DISCORD_CLIENT_SECRET;
-  const redirectUri = 'https://votre-site.netlify.app/callback';
-
-  const params = new URLSearchParams();
-  params.append('client_id', clientId);
-  params.append('client_secret', clientSecret);
-  params.append('grant_type', 'authorization_code');
-  params.append('code', code);
-  params.append('redirect_uri', redirectUri);
-  params.append('scope', 'identify');
+  const botToken = process.env.DISCORD_BOT_TOKEN;
+  const guildId = process.env.GUILD_ID;
+  const roleId = process.env.ROLE_ID;
+  const redirectUri = 'https://eluun.link/callback';
 
   try {
-    const response = await fetch('https://discord.com/api/oauth2/token', {
+    // Échanger le code contre un token
+    const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
       method: 'POST',
-      body: params,
+      body: new URLSearchParams({
+        client_id: clientId,
+        client_secret: clientSecret,
+        code: code,
+        grant_type: 'authorization_code',
+        redirect_uri: redirectUri,
+        scope: 'identify guilds.join'
+      }),
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
 
-    const data = await response.json();
-    const accessToken = data.access_token;
-
+    const tokenData = await tokenResponse.json();
+    
+    // Récupérer les informations de l'utilisateur
     const userResponse = await fetch('https://discord.com/api/users/@me', {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${tokenData.access_token}`
+      }
+    });
+    
+    const userData = await userResponse.json();
+
+    // Ajouter l'utilisateur au serveur avec le rôle
+    await fetch(`https://discord.com/api/guilds/${guildId}/members/${userData.id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bot ${botToken}`,
+        'Content-Type': 'application/json'
       },
+      body: JSON.stringify({
+        access_token: tokenData.access_token,
+        roles: [roleId]
+      })
     });
 
-    const userData = await userResponse.json();
-    const userId = userData.id;
-
-    // Rediriger vers index.html avec l'ID utilisateur Discord
     return {
       statusCode: 302,
       headers: {
-        Location: `/index.html?userId=${userId}`,
-      },
+        Location: 'https://eluun.link' // Redirection vers votre site
+      }
     };
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Auth Error:', error);
     return {
       statusCode: 500,
-      body: 'An error occurred.',
+      body: JSON.stringify({ error: 'Authentication failed' })
     };
   }
 };
