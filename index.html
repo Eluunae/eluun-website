@@ -86,33 +86,20 @@
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
-  
+  const success = urlParams.get('success');
+
+  if (success === 'true') {
+    document.getElementById('thanksModal').style.display = 'flex';
+    return;
+  }
+
   if (code) {
-    console.log('Code reçu:', code);
-    
-    fetch('/.netlify/functions/process-discord', {  // URL corrigée
+    fetch('/.netlify/functions/process-discord', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ code: code })
-    })
-    .then(response => {
-      console.log('Status:', response.status);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Réponse:', data);
-      if (data.success) {
-        document.getElementById('thanksModal').style.display = 'flex';
-      }
-    })
-    .catch(error => {
-      console.error('Erreur:', error);
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code })
     });
+    // Ne pas attendre la réponse car il y aura redirection
   }
 });
 

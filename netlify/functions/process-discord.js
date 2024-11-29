@@ -50,6 +50,7 @@ exports.handler = async function(event) {
 
     console.log('Utilisateur ajouté avec rôle');
 
+    // Une fois tout terminé, rediriger vers la page d'accueil avec success=true
     return {
       statusCode: 302,
       headers: {
@@ -58,13 +59,10 @@ exports.handler = async function(event) {
     };
 
   } catch (error) {
-    console.error('Erreur:', error.response?.data || error.message);
+    console.error('Error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ 
-        error: error.message,
-        details: error.response?.data 
-      })
+      body: JSON.stringify({ error: error.message })
     };
   }
   
