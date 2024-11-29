@@ -1,26 +1,21 @@
 const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
-    console.log('Received event:', {
-        method: event.httpMethod,
-        code: event.queryStringParameters?.code,
-        headers: event.headers
-    });
+    console.log('Starting callback handler...');
+    const code = event.queryStringParameters?.code;
+    
+    if (!code) {
+        console.error('No code provided');
+        return {
+            statusCode: 302,
+            headers: {
+                'Location': '/?error=no_code'
+            }
+        };
+    }
 
     try {
-        const code = event.queryStringParameters?.code;
-        
-        if (!code) {
-            return {
-                statusCode: 400,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ error: 'No authorization code provided' })
-            };
-        }
-
-        // Exchange code for token
+        console.log('Exchanging code for token...');
         const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
             method: 'POST',
             body: new URLSearchParams({
@@ -36,59 +31,38 @@ exports.handler = async (event) => {
         });
 
         const tokenData = await tokenResponse.json();
-        console.log('Token response:', tokenData);
+        console.log('Token received:', tokenData.access_token ? 'Yes' : 'No');
 
         if (tokenData.error) {
+            console.error('Token error:', tokenData.error);
             return {
-                statusCode: 400,
+                statusCode: 302,
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ error: tokenData.error })
+                    'Location': `/?error=${encodeURIComponent(tokenData.error)}`
+                }
             };
         }
 
-        // Get user info and add to guild
-        const userResponse = await fetch('https://discord.com/api/users/@me', {
-            headers: {
-                Authorization: `Bearer ${tokenData.access_token}`
-            }
-        });
-
-        const userData = await userResponse.json();
-        console.log('User data:', userData);
-
-        // Add to guild
-        if (process.env.GUILD_ID) {
-            await fetch(`https://discord.com/api/guilds/${process.env.GUILD_ID}/members/${userData.id}`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    access_token: tokenData.access_token,
-                    roles: [process.env.ROLE_ID]
-                })
-            });
-        }
-
+        // État temporaire dans l'URL pour vérification côté client
+        const state = Math.random().toString(36).substring(7);
+        
         return {
             statusCode: 302,
             headers: {
-                'Location': '/',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ success: true })
+                'Location': `/?state=${state}`,
+                'Set-Cookie': [
+                    `discord_token=${tokenData.access_token}; HttpOnly; Secure; SameSite=Strict; Path=/`,
+                    `discord_state=${state}; HttpOnly; Secure; SameSite=Strict; Path=/`
+                ].join(', ')
+            }
         };
     } catch (error) {
         console.error('Auth error:', error);
         return {
-            statusCode: 500,
+            statusCode: 302,
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ error: error.message })
+                'Location': `/?error=${encodeURIComponent(error.message)}`
+            }
         };
     }
 };
