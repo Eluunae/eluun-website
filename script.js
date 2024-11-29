@@ -151,17 +151,24 @@ function getTelegramUserId() {
 document.getElementById('telegramButton').addEventListener('click', async function() {
   window.open('https://t.me/eluun-news', '_blank');
 
-  // Attendre quelques secondes pour que l'utilisateur rejoigne le channel
-  setTimeout(async function() {
-    const userId = getTelegramUserId();
+  const userId = getTelegramUserId();
+  let attempts = 0;
+  const maxAttempts = 48; // 4 minutes / 5 secondes = 48 tentatives
+
+  const intervalId = setInterval(async function() {
     const isJoined = await checkIfUserJoinedTelegram(userId);
+    attempts++;
 
     if (isJoined) {
-      window.location.href = 'download_page_url'; // Remplacez par l'URL de votre page de téléchargement
-    } else {
-      alert('Veuillez rejoindre le channel Telegram pour continuer.');
+      clearInterval(intervalId);
+      alert('Merci d\'avoir rejoint le channel Telegram ! Vous pouvez maintenant télécharger le fichier.');
+      // Activer le bouton de téléchargement ou effectuer une autre action
+      document.getElementById('downloadButton').disabled = false;
+    } else if (attempts >= maxAttempts) {
+      clearInterval(intervalId);
+      alert('Le temps imparti pour rejoindre le channel Telegram est écoulé.');
     }
-  }, 5000); // Attendre 5 secondes
+  }, 5000); // Vérifier toutes les 5 secondes
 });
 
 // Fonction pour télécharger le fichier
@@ -189,28 +196,11 @@ window.onload = async function() {
 
     // Suivre l'utilisateur et liker la musique
     await followUserSpotify(currentUserId, accessToken);
-    await likeTrackSpotify(currentTrackId, accessToken);
+  }
 
-    // Vérifier si l'utilisateur suit l'artiste et a liké la musique de manière générale
-    const userFollowed = await checkIfUserFollows(currentUserId, accessToken);
-    const trackLiked = await checkIfTrackLiked(currentTrackId, accessToken);
-
-    console.log('window.onload:', { userFollowed, trackLiked });
-
-    // Vérifier si l'utilisateur suit sur Patreon
-    const patreonAccessToken = getAccessTokenFromUrl(); // Remplacez par la méthode appropriée pour obtenir le token Patreon
-    const patreonFollowed = await checkIfUserFollowsPatreon(patreonAccessToken);
-
-    if (userFollowed && trackLiked && patreonFollowed) {
-      document.getElementById('modal').style.display = 'block';
-      document.querySelector('.spotify-button').innerHTML += ' ✔';
-      const downloadButton = document.querySelector('.download-button');
-      downloadButton.disabled = false; // Activer le bouton Télécharger
-      downloadButton.onclick = function() {
-        downloadFile(currentAudioUrl);
-      };
-    } else {
-      console.log('Conditions non remplies pour le téléchargement');
-    }
+  // Vérifier si le paramètre modal est présent dans l'URL
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('modal') === 'open') {
+    document.getElementById('modal').style.display = 'block';
   }
 };
