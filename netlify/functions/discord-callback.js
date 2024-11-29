@@ -19,9 +19,9 @@ exports.handler = async function(event, context) {
 };
 
 // netlify/functions/discord-callback.js
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';  // Utilisation de import au lieu de require
 
-exports.handler = async function(event) {
+export async function handler(event) {
   const code = event.queryStringParameters.code;
   
   if (!code) {
@@ -32,12 +32,9 @@ exports.handler = async function(event) {
   }
 
   try {
-    // 1. Échanger le code contre un token
     const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
         client_id: process.env.DISCORD_CLIENT_ID,
         client_secret: process.env.DISCORD_CLIENT_SECRET,
@@ -87,4 +84,4 @@ exports.handler = async function(event) {
       body: JSON.stringify({ error: error.message })
     };
   }
-};
+}
