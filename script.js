@@ -178,17 +178,46 @@ window.onload = async function() {
 
 async function handleDiscordAuth() {
     try {
-        const response = await fetch('/.netlify/functions/getConfig');
-        const config = await response.json();
+        // Vérifier si on est sur la page de callback
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
         
-        const clientId = config.clientId;
-        const redirectUri = config.redirectUri;
-        const scope = 'identify guilds.join';
+        if (code) {
+            // Si on a un code, on l'échange contre un token
+            const response = await fetch('/.netlify/functions/callback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code })
+            });
+            
+            const data = await response.json();
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            
+            // Redirection vers la page principale
+            window.location.href = '/';
+            return;
+        }
+
+        // Si pas de code, initier l'auth
+        const configResponse = await fetch('/.netlify/functions/getConfig');
+        const config = await configResponse.json();
         
-        const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}`;
+        const url = `https://discord.com/api/oauth2/authorize?client_id=${config.clientId}&redirect_uri=${encodeURIComponent(config.redirectUri)}&response_type=code&scope=${encodeURIComponent('identify guilds.join')}`;
         
         window.location.href = url;
     } catch (error) {
-        console.error('Error during Discord auth:', error);
+        console.error('Discord auth error:', error);
     }
 }
+
+// Ajouter un écouteur pour le chargement de la page
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('code')) {
+        handleDiscordAuth();
+    }
+});
