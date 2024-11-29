@@ -28,9 +28,9 @@
                     I've been looking for an alternative solution for a long time, and Patreon seems to be the best one. <br>
                     <br>
                     You can join my free channel and centralize my communication on this platform, which has been adopted by the majority of today's independent artists.
-                    Patreon is browser-based, and will keep you informed by e-mail, but the best way to offer me support et visibility is to download the mobile application, which can send notifications directly to your phone to keep you informed of my progress. And you can unsubscribe at any time.<br>
+                    Patreon is browser-based, and will keep you informed by e-mail, but the best way to offer me support et visibility est de télécharger l'application mobile, qui peut envoyer des notifications directement à votre téléphone pour vous tenir informé de mes progrès. Et vous pouvez vous désabonner à tout moment.<br>
                     <br>
-                    I'll never be able to thank enough the people who decide to sign up here.<br>
+                    Je ne pourrai jamais assez remercier les personnes qui décident de s'inscrire ici.<br>
                     <br>
                     Eluun</p>
 
@@ -51,12 +51,14 @@
   };
 
   function loginWithDiscord() {
+    console.log('loginWithDiscord function called');
     const clientId = 'YOUR_CLIENT_ID'; // Remplacez par votre client_id Discord
     const redirectUri = encodeURIComponent('https://votre-site.netlify.app/callback');
     const scope = encodeURIComponent('identify');
     const responseType = 'code';
 
     const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
+    console.log('Redirecting to:', url);
     window.location.href = url;
   }
 
@@ -81,89 +83,5 @@
       });
   }
 </script>
-
-                    <a href="https://www.patreon.com/eluun" target="_blank">
-                        <button type="button" id="submit-btn" class="follow-btn discord-btn">
-                            <img src="discord-white-icon.webp" alt="Discord Logo" class="discord-logo">
-                            Join us
-                        </button>
-                    </a>
-                    
-            </form>
-        </div>
-
-        <h3 class="link-text">All my link :</h3>
-
-        <!-- Button Section -->
-        <!-- Début du bloc des boutons -->
-<!-- Section des boutons -->
-<section class="button-section">
-<!-- Première colonne -->
-<div class="column">
-    <a href="https://www.mbartists.co.uk/clara/eluun" target="_blank"><button>Booking EU/UK</button></a>
-    <a href="https://www.patreon.com/c/Eluun" target="_blank"><button>Patreon (support)</button></a>
-    <a href="https://www.instagram.com/eluun.dnb/" target="_blank"><button>Instagram</button></a>
-    <a href="https://soundcloud.com/eluunofficial" target="_blank"><button>Soundcloud</button></a>
-    <a href="https://open.spotify.com/intl-fr/artist/7LySsKIRvri6Ye5kUv47DQ?si=3165a23d26134a30" target="_blank"><button>Spotify</button></a>
-    <a href="https://music.apple.com/fr/artist/eluun/1195602750" target="_blank"><button>Apple Music</button></a>
-    <!-- <a href="download.html" target="_blank"><button>Free download my music</button></a> reactivé le boutton dl ici-->
-  </div>
-  
-<!-- Deuxième colonne -->
-<div class="column">
-    <a href="https://bfan.link/soulchild" target="_blank">
-        <button>
-            Soulchild EP
-            <span class="button-icon">
-                <img src="Soulchild.jpg" class="icon-pic" />
-            </span>
-        </button>
-    </a>
-
-    <a href="https://kosenprod.fanlink.tv/fromdusttodawn" target="_blank">
-        <button>
-            Snowfall
-            <span class="button-icon">
-                <img src="Snowfall.jpg" class="icon-pic" />
-            </span>
-        </button>
-    </a>
-
-    <a href="https://open.spotify.com/intl-fr/album/0Fb4pOQvyLpSb2S8YA4NYs?si=fEh5RrFtR5eugEDestkbHQ&nd=1&dlsi=ddcdd303e43a4367" target="_blank">
-        <button>
-            Icarus EP
-            <span class="button-icon">
-                <img src="Icarus.jpg" class="icon-pic" />
-            </span>
-        </button>
-    </a>
-
-    <a href="https://bfan.link/gen-iii" target="_blank">
-        <button>
-            Unseen
-            <span class="button-icon">
-                <img src="Unseen.jpg" class="icon-pic" />
-            </span>
-        </button>
-    </a>
-
-    <a href="https://soundcloud.com/eluunofficial/tarantula-bootleg" target="_blank">
-        <button>
-            Tarantula Bootleg
-            <span class="button-icon">
-                <img src="Tarantula.jpg" class="icon-pic" />
-            </span>
-        </button>
-    </a>
-
-    <a href="https://soundcloud.com/eluunofficial/buunshin-different-tomorrow-eluun-remix-8" target="_blank">
-        <button>
-            Different Tomorrow Remix
-            <span class="button-icon">
-                <img src="Different.jpg" class="icon-pic" />
-            </span>
-        </button>
-    </a>
-</div>
 </body>
 </html>
