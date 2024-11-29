@@ -1,10 +1,13 @@
-// functions/getConfig.js
-exports.handler = async function(event, context) {
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-            clientId: process.env.DISCORD_CLIENT_ID,
-            redirectUri: process.env.REDIRECT_URI
-        })
-    };
+// netlify/functions/getConfig.js
+exports.handler = async function() {
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      redirectUri: 'https://eluun.link/callback' // URL fixe ou process.env.REDIRECT_URI
+    })
+  };
 };
