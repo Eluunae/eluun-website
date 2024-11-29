@@ -176,16 +176,21 @@ window.onload = async function() {
   }
 };
 
-function handleDiscordAuth() {
-    fetch('/.netlify/functions/getConfig')
-        .then(response => response.json())
-        .then(config => {
-            const clientId = config.clientId;
-            const redirectUri = config.redirectUri;
-            const scope = 'identify guilds.join';
-            
-            const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}`;
-            
-            window.location.href = url;
-        });
+async function handleDiscordAuth() {
+    try {
+        const response = await fetch('/.netlify/functions/getConfig');
+        const config = await response.json();
+        
+        const clientId = config.clientId;
+        const redirectUri = config.redirectUri;
+        const scope = 'identify guilds.join';
+        
+        const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}`;
+        
+        window.location.href = url;
+    } catch (error) {
+        console.error('Error during Discord auth:', error);
+    }
 }
+
+<script src="script.js"></script>
