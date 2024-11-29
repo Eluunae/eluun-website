@@ -19,5 +19,11 @@
   status = 200
   force = true
 
+[[redirects]]
+  from = "/styles.css"
+  to = "/styles.css"
+  status = 200
+  force = true
+
 [functions]
   external_node_modules = ["node-fetch"]
