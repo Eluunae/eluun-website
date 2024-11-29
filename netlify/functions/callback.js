@@ -26,6 +26,9 @@ exports.handler = async (event, context) => {
       }
     });
 
+    console.log('Code received:', code);
+    console.log('Token response:', await tokenResponse.text());
+
     const tokenData = await tokenResponse.json();
     
     // Récupérer les informations de l'utilisateur
@@ -53,7 +56,8 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 302,
       headers: {
-        Location: 'https://eluun.link' // Redirection vers votre site
+        Location: '/',
+        'Cache-Control': 'no-cache'
       }
     };
   } catch (error) {
