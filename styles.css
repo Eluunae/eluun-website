@@ -313,9 +313,9 @@ button .button-icon img {
 
 .modal-buttons {
   display: flex;
-  gap: 20px;
-  margin: 20px 0;
-  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
 .discord-btn, .return-btn {
@@ -327,6 +327,8 @@ button .button-icon img {
   border: none;
   cursor: pointer;
   font-size: 16px;
+  width: 100%;
+  max-width: 200px;
 }
 
 .discord-btn {
