@@ -10,3 +10,4 @@
   from = "/callback"
   to = "/.netlify/functions/callback"
   status = 200
+  force = true
