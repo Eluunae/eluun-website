@@ -1,17 +1,23 @@
 const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
-    // Log the incoming request
     console.log('Received event:', {
         method: event.httpMethod,
-        code: event.queryStringParameters?.code || 'No code'
+        code: event.queryStringParameters?.code,
+        headers: event.headers
     });
 
     try {
-        const code = event.queryStringParameters?.code || JSON.parse(event.body)?.code;
+        const code = event.queryStringParameters?.code;
         
         if (!code) {
-            throw new Error('No authorization code provided');
+            return {
+                statusCode: 400,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ error: 'No authorization code provided' })
+            };
         }
 
         // Exchange code for token
@@ -33,10 +39,16 @@ exports.handler = async (event) => {
         console.log('Token response:', tokenData);
 
         if (tokenData.error) {
-            throw new Error(tokenData.error);
+            return {
+                statusCode: 400,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ error: tokenData.error })
+            };
         }
 
-        // Get user info
+        // Get user info and add to guild
         const userResponse = await fetch('https://discord.com/api/users/@me', {
             headers: {
                 Authorization: `Bearer ${tokenData.access_token}`
@@ -46,8 +58,8 @@ exports.handler = async (event) => {
         const userData = await userResponse.json();
         console.log('User data:', userData);
 
-        // Add user to server with role
-        if (process.env.GUILD_ID && process.env.ROLE_ID) {
+        // Add to guild
+        if (process.env.GUILD_ID) {
             await fetch(`https://discord.com/api/guilds/${process.env.GUILD_ID}/members/${userData.id}`, {
                 method: 'PUT',
                 headers: {
@@ -65,16 +77,18 @@ exports.handler = async (event) => {
             statusCode: 302,
             headers: {
                 'Location': '/',
-                'Set-Cookie': `discord_user=${userData.id}; Path=/; HttpOnly`
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ success: true })
         };
     } catch (error) {
         console.error('Auth error:', error);
         return {
-            statusCode: 302,
+            statusCode: 500,
             headers: {
-                'Location': '/?error=' + encodeURIComponent(error.message)
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ error: error.message })
         };
     }
 };
