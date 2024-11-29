@@ -29,10 +29,9 @@ function connectSpotify() {
   window.location.href = authUrl;
 }
 
-function connectTelegram() {
-  const telegramUrl = 'https://t.me/eluun_news'; // Remplacez par l'URL de votre chaîne Telegram
-  console.log('connectTelegram:', telegramUrl);
-  window.location.href = telegramUrl;
+function connectDiscord() {
+  window.open('https://discord.gg/your_invite_code', '_blank');
+  // Vous pouvez ajouter ici la logique pour vérifier l'adhésion à Discord via l'API Discord
 }
 
 // Fonction pour récupérer le token d'accès depuis l'URL de redirection
@@ -65,6 +64,46 @@ function followUserSpotify(userId, accessToken) {
       return false;
     }
   });
+}
+
+// Code existant pour télécharger le fichier
+function downloadFile(url) {
+  console.log('downloadFile:', url);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = url.split('/').pop(); // Utiliser le nom de fichier à partir de l'URL
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+// Exemple d'utilisation après redirection
+window.onload = async function() {
+  const accessToken = getAccessTokenFromUrl();
+  if (accessToken) {
+    // Récupérer les valeurs depuis le stockage local
+    currentUserId = localStorage.getItem('currentUserId');
+    currentTrackId = localStorage.getItem('currentTrackId');
+    currentAudioUrl = localStorage.getItem('currentAudioUrl');
+
+    console.log('window.onload: currentUserId', currentUserId);
+    console.log('window.onload: currentTrackId', currentTrackId);
+
+    // Suivre l'utilisateur et liker la musique
+    await followUserSpotify(currentUserId, accessToken);
+  }
+
+  // Vérifier si le paramètre modal est présent dans l'URL
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('modal') === 'open') {
+    document.getElementById('modal').style.display = 'block';
+  }
+};
+
+function connectTelegram() {
+  const telegramUrl = 'https://t.me/eluun_news'; // Remplacez par l'URL de votre chaîne Telegram
+  console.log('connectTelegram:', telegramUrl);
+  window.location.href = telegramUrl;
 }
 
 // Fonction pour liker une piste
@@ -170,37 +209,3 @@ document.getElementById('telegramButton').addEventListener('click', async functi
     }
   }, 5000); // Vérifier toutes les 5 secondes
 });
-
-// Fonction pour télécharger le fichier
-function downloadFile(url) {
-  console.log('downloadFile:', url);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = url.split('/').pop(); // Utiliser le nom de fichier à partir de l'URL
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
-
-// Exemple d'utilisation après redirection
-window.onload = async function() {
-  const accessToken = getAccessTokenFromUrl();
-  if (accessToken) {
-    // Récupérer les valeurs depuis le stockage local
-    currentUserId = localStorage.getItem('currentUserId');
-    currentTrackId = localStorage.getItem('currentTrackId');
-    currentAudioUrl = localStorage.getItem('currentAudioUrl');
-
-    console.log('window.onload: currentUserId', currentUserId);
-    console.log('window.onload: currentTrackId', currentTrackId);
-
-    // Suivre l'utilisateur et liker la musique
-    await followUserSpotify(currentUserId, accessToken);
-  }
-
-  // Vérifier si le paramètre modal est présent dans l'URL
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('modal') === 'open') {
-    document.getElementById('modal').style.display = 'block';
-  }
-};
