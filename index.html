@@ -95,13 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       body: JSON.stringify({ code })
     })
-    .then(response => response.json())
+    .then(response => {
+      // Vérifier si la redirection est nécessaire
+      if (response.redirected) {
+        window.location.href = response.url;
+        return;
+      }
+      return response.json();
+    })
     .then(data => {
-      if (data.success && data.redirect) {
-        window.location.href = data.redirect;
+      if (data && data.success) {
+        window.location.href = '/?success=true';
       }
     })
-    .catch(console.error);
+    .catch(error => {
+      console.error('Erreur:', error);
+    });
   }
 
   // Vérifier success pour le modal

@@ -53,11 +53,14 @@ exports.handler = async function(event) {
     
     // Redirection vers la page d'accueil avec paramètre success
     return {
-      statusCode: 302,
+      statusCode: 200,
       headers: {
-        'Location': 'https://eluun.link?success=true',
-        'Cache-Control': 'no-cache'
-      }
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: true,
+        redirect: 'https://eluun.link?success=true'
+      })
     };
 
   } catch (error) {
