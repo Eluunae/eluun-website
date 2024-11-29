@@ -192,5 +192,3 @@ async function handleDiscordAuth() {
         console.error('Error during Discord auth:', error);
     }
 }
-
-<script src="script.js"></script>
