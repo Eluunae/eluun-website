@@ -1,61 +1,75 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Télécharger ma musique</title>
-    <link rel="stylesheet" href="download.css"> <!-- Lien vers le fichier CSS spécifique -->
+    <title>Eluun - Official</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <section class="download">
-        <p>Pour télécharger mes morceaux, suivez-moi sur Spotify et SoundCloud, et laissez un commentaire ou repostez sur SoundCloud !</p>
-        
-        <div class="music-column">
-            <div class="music-block music-block-1">
-                <img src="Tarantula.jpg" alt="Musique 1" class="music-image">
-                <div class="music-info">
-                    <p class="artist-name">Eluun</p>
-                    <h3>Tarantula - Pendulum x Circumference (Eluun Bootleg)</h3>
-                </div>
-                <button class="api-button" onclick="openModal(this)" data-user-id="5hvR80ZuQm5TWMu23iLqiQ" data-track-id="2uav6PL7uczBUISGX7yaN7" data-audio-url="You left me - Final.wav">Télécharger</button>
-            </div>
-            <div class="music-block music-block-2">
-                <img src="Different.jpg" alt="Musique 2" class="music-image">
-                <div class="music-info">
-                    <p class="artist-name">Eluun</p>
-                    <h3>Buunshin - Different Tomorrow... (Eluun Remix)</h3>
-                </div>
-                <button class="api-button" onclick="openModal(this)" data-user-id="7LySsKIRvri6Ye5kUv47DQ" data-track-id="0W0RM3lSuYKlyxfB79peJa" data-audio-url="You left me - Final.wav">Télécharger</button>
-            </div>
-            <div class="music-block music-block-3">
-                <img src="Stase.jpg" alt="Musique 3" class="music-image">
-                <div class="music-info">
-                    <p class="artist-name">Eluun</p>
-                    <h3>STASE</h3>
-                </div>
-                <button class="api-button" onclick="openModal(this)" data-user-id="7LySsKIRvri6Ye5kUv47DQ" data-track-id="0W0RM3lSuYKlyxfB79peJa" data-audio-url="You left me - Final.wav">Télécharger</button>
-            </div>
+    <!-- Main container -->
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile">
+            <img src="profile.png" alt="Eluun" class="profile-pic">
+            <h1 class="artist-name">Eluun</h1>
         </div>
-    </section>
 
-<!-- Bloc flottant -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div class="modal-buttons">
-            <button class="soundcloud-button" onclick="connectSoundCloud()" disabled>SoundCloud</button>
-            <div style="display: flex; align-items: center;"><span>or</span></div>
-            <button class="spotify-button" onclick="connectSpotify()" disabled>Spotify</button>
-            <div style="display: flex; align-items: center;"><span>or</span></div>
-            <button class="instagram-button" disabled>Instagram</button>
-        </div>
-        <div style="align-items: center;"><span>and</span></div>
-        <div><button class="patreon-button">Patreon (free)</button></div>
-    </div>
-</div>
-    
+        <!-- Subscription Form -->
+        <div class="form-container">
+            <h2>Give your strongest support to my independence</h2>
+            <form id="phone-form">
+                <p class="content-text">Today's music world is terribly hard on independent, non-mainstream and underground artists.<br>
+                    <br>
+                    Dependence on algorithms is a veritable plague that is slowly killing our industry. This is the observation I make every day as a player in this industry.<br>
+                    <br>
+                    That's why I want to take strong action and stop putting my trust in platforms like Spotify ou Instagram, which severely limit the support you want to give me by profoundly limiting my visibility.<br>
+                    <br>
+                    I've been looking for an alternative solution for a long time, and Patreon seems to be the best one. <br>
+                    <br>
+                    You can join my free channel and centralize my communication on this platform, which has been adopted by the majority of today's independent artists.
+                    Patreon is browser-based, and will keep you informed by e-mail, but the best way to offer me support and visibility is to download the mobile application, which can send notifications directly to your phone to keep you informed of my progress. And you can unsubscribe at any time.<br>
+                    <br>
+                    I'll never be able to thank enough the people who decide to sign up here.<br>
+                    <br>
+                    Eluun</p>
 
+                    <button onclick="loginWithDiscord()">Join us on Discord</button>
 
-    <script src="script.js"></script>
+<script>
+  function loginWithDiscord() {
+    const clientId = 'YOUR_CLIENT_ID'; // Remplacez par votre client_id Discord
+    const redirectUri = encodeURIComponent('https://votre-site.netlify.app/callback');
+    const scope = encodeURIComponent('identify');
+    const responseType = 'code';
+
+    const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
+    window.location.href = url;
+  }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+  
+  if (code) {
+    fetch('/.netlify/functions/process-discord', {
+      method: 'POST',
+      body: JSON.stringify({ code }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        window.location.href = '/';
+      }
+    })
+    .catch(console.error);
+  }
+});
+</script>
 </body>
 </html>
