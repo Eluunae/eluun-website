@@ -82,6 +82,36 @@
   }
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Vérifier si on a un code dans l'URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+  
+  if (code) {
+    // Supprimer les messages de la console
+    console.clear();
+    
+    // Appeler notre fonction callback avec le code
+    fetch('/.netlify/functions/discord-callback', {
+      method: 'POST',
+      body: JSON.stringify({ code }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Rediriger vers la page d'accueil sans le code
+        window.location.href = '/';
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  }
+});
+</script>
+
                     <a href="https://www.patreon.com/eluun" target="_blank">
                         <button type="button" id="submit-btn" class="follow-btn discord-btn">
                             <img src="discord-white-icon.webp" alt="Discord Logo" class="discord-logo">
