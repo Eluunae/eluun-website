@@ -231,5 +231,41 @@ document.addEventListener('DOMContentLoaded', () => {
         </button>
     </a>
 </div>
+
+<div id="thanksModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <p class="modal-text">
+      Thank you so much for joining the server. You can't imagine the value of your support. If you want to optimize your help, install discord on your phone, so you can receive notifications when I release new music and be 100% sure not to miss them and therefore support me in the best way possible.
+      <br><br>
+      Beyond that, you can also chat with us and become an integral part of the community!
+      <br><br>
+      Thanks a million.
+      <br>
+      Mona
+    </p>
+    <div class="modal-buttons">
+      <button class="discord-btn" onclick="window.open('https://discord.gg/votre-lien', '_blank')">
+        <img src="/assets/images/discord-white-icon.webp" alt="Discord" />
+        Open the server
+      </button>
+      <button class="return-btn" onclick="closeModal()">Return</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success')) {
+    document.getElementById('thanksModal').style.display = 'flex';
+  }
+});
+
+function closeModal() {
+  document.getElementById('thanksModal').style.display = 'none';
+  window.history.replaceState({}, document.title, '/');
+}
+</script>
+
 </body>
 </html>

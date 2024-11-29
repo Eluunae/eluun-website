@@ -282,3 +282,63 @@ button .button-icon img {
     height: 20px;
     margin-right: 10px;
 }
+
+/* styles.css - Ajouter à la fin du fichier */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 17, 17, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #111111;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px;
+}
+
+.modal-text {
+  color: #ffffff;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.discord-btn, .return-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.discord-btn {
+  background: #5865F2;
+  color: white;
+}
+
+.discord-btn img {
+  height: 24px;
+}
+
+.return-btn {
+  background: #4f4f4f;
+  color: white;
+}

@@ -51,11 +51,10 @@ exports.handler = async function(event) {
     console.log('Utilisateur ajouté avec rôle');
 
     return {
-      statusCode: 200,
-      body: JSON.stringify({ 
-        success: true,
-        message: 'Utilisateur ajouté au serveur avec le rôle'
-      })
+      statusCode: 302,
+      headers: {
+        'Location': 'https://eluun.link?success=true'
+      }
     };
 
   } catch (error) {
