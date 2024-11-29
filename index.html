@@ -120,7 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (code) {
     console.log('Code reçu:', code);
     
-    fetch('/.netlify/functions/process-discord', {
+    // Corriger l'URL de l'endpoint
+    fetch('/.netlify/functions/process-discord', {  // Changé de discord-callback à process-discord
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -128,15 +129,16 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify({ code: code })
     })
     .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      console.log('Status:', response.status);
       return response.json();
     })
     .then(data => {
       console.log('Réponse:', data);
       if (data.success) {
-        window.location.href = '/';
+        // Attendre un peu avant la redirection
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
       }
     })
     .catch(error => {
