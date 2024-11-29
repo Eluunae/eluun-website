@@ -86,27 +86,29 @@
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
-  const success = urlParams.get('success');
-
-  if (success === 'true') {
-    document.getElementById('thanksModal').style.display = 'flex';
-    return;
-  }
-
+  
   if (code) {
     fetch('/.netlify/functions/process-discord', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ code })
-    });
-    // Ne pas attendre la réponse car il y aura redirection
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success && data.redirect) {
+        window.location.href = data.redirect;
+      }
+    })
+    .catch(console.error);
+  }
+
+  // Vérifier success pour le modal
+  if (urlParams.get('success') === 'true') {
+    document.getElementById('thanksModal').style.display = 'flex';
   }
 });
-
-function closeModal() {
-  document.getElementById('thanksModal').style.display = 'none';
-  window.history.replaceState({}, document.title, '/');
-}
 </script>
 
                     <a href="https://www.patreon.com/eluun" target="_blank">
@@ -221,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('thanksModal').style.display = 'flex';
   }
 });
+
 
 function closeModal() {
   document.getElementById('thanksModal').style.display = 'none';
