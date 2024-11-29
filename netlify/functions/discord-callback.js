@@ -24,7 +24,15 @@ const fetch = require('node-fetch');
 exports.handler = async function(event) {
   const code = event.queryStringParameters.code;
   
+  if (!code) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'No code provided' })
+    };
+  }
+
   try {
+    // 1. Échanger le code contre un token
     const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
       method: 'POST',
       headers: {
@@ -40,23 +48,40 @@ exports.handler = async function(event) {
     });
 
     const tokenData = await tokenResponse.json();
+    console.log('Token data:', tokenData); // Debug log
 
-    // Ajouter le rôle
-    await fetch(`https://discord.com/api/guilds/${process.env.DISCORD_GUILD_ID}/members/${tokenData.user.id}/roles/${process.env.DISCORD_ROLE_ID}`, {
-      method: 'PUT',
+    // 2. Obtenir les infos utilisateur
+    const userResponse = await fetch('https://discord.com/api/users/@me', {
       headers: {
-        Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-        'Content-Type': 'application/json'
+        Authorization: `Bearer ${tokenData.access_token}`
       }
     });
 
+    const userData = await userResponse.json();
+    console.log('User data:', userData); // Debug log
+
+    // 3. Ajouter le rôle
+    const roleResponse = await fetch(
+      `https://discord.com/api/guilds/${process.env.DISCORD_GUILD_ID}/members/${userData.id}/roles/${process.env.DISCORD_ROLE_ID}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    // 4. Redirection finale
     return {
       statusCode: 302,
       headers: {
-        Location: 'https://eluun.link'
+        'Location': 'https://eluun.link'
       }
     };
+
   } catch (error) {
+    console.error('Error:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message })
