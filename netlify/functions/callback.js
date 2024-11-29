@@ -15,7 +15,7 @@ exports.handler = async (event) => {
     }
 
     try {
-        console.log('Exchanging code for token...');
+        // Échange du code contre un token
         const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
             method: 'POST',
             body: new URLSearchParams({
@@ -23,7 +23,8 @@ exports.handler = async (event) => {
                 client_secret: process.env.DISCORD_CLIENT_SECRET,
                 code: code,
                 grant_type: 'authorization_code',
-                redirect_uri: 'https://eluun.link/callback'
+                redirect_uri: 'https://eluun.link/callback',
+                scope: 'identify guilds.join'
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -31,31 +32,41 @@ exports.handler = async (event) => {
         });
 
         const tokenData = await tokenResponse.json();
-        console.log('Token received:', tokenData.access_token ? 'Yes' : 'No');
-
+        
         if (tokenData.error) {
-            console.error('Token error:', tokenData.error);
-            return {
-                statusCode: 302,
-                headers: {
-                    'Location': `/?error=${encodeURIComponent(tokenData.error)}`
-                }
-            };
+            throw new Error(tokenData.error);
         }
 
-        // État temporaire dans l'URL pour vérification côté client
-        const state = Math.random().toString(36).substring(7);
-        
+        // Récupération des infos utilisateur
+        const userResponse = await fetch('https://discord.com/api/users/@me', {
+            headers: {
+                Authorization: `Bearer ${tokenData.access_token}`
+            }
+        });
+
+        const userData = await userResponse.json();
+
+        // Ajouter l'utilisateur au serveur
+        await fetch(`https://discord.com/api/guilds/${process.env.GUILD_ID}/members/${userData.id}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                access_token: tokenData.access_token,
+                roles: [process.env.ROLE_ID]
+            })
+        });
+
         return {
             statusCode: 302,
             headers: {
-                'Location': `/?state=${state}`,
-                'Set-Cookie': [
-                    `discord_token=${tokenData.access_token}; HttpOnly; Secure; SameSite=Strict; Path=/`,
-                    `discord_state=${state}; HttpOnly; Secure; SameSite=Strict; Path=/`
-                ].join(', ')
+                'Location': '/',
+                'Set-Cookie': `discord_user=${userData.id}; HttpOnly; Secure; Path=/`
             }
         };
+
     } catch (error) {
         console.error('Auth error:', error);
         return {
