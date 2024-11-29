@@ -34,6 +34,18 @@
                     <br>
                     Eluun</p>
 
+                    <button onclick="joinDiscord()">Join us on Discord</button>
+
+<script>
+  function joinDiscord() {
+    const userId = 'USER_DISCORD_ID'; // Remplacez par l'ID utilisateur Discord
+    fetch(`/.netlify/functions/addRole?userId=${userId}`)
+      .then(response => response.text())
+      .then(data => alert(data))
+      .catch(error => console.error('Error:', error));
+  }
+</script>
+
                     <a href="https://www.patreon.com/eluun" target="_blank">
                         <button type="button" id="submit-btn" class="follow-btn discord-btn">
                             <img src="discord-white-icon.webp" alt="Discord Logo" class="discord-logo">
