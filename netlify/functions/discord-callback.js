@@ -19,34 +19,28 @@ exports.handler = async function(event, context) {
 };
 
 // netlify/functions/discord-callback.js
-exports.handler = async function(event, context) {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
+const fetch = require('node-fetch');
 
+exports.handler = async function(event) {
+  const code = event.queryStringParameters.code;
+  
   try {
-    const { code } = JSON.parse(event.body);
-    const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID;
-    const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
-    const DISCORD_REDIRECT_URI = 'https://eluun.link';
-
-    // Échanger le code contre un token
     const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams({
-        client_id: DISCORD_CLIENT_ID,
-        client_secret: DISCORD_CLIENT_SECRET,
-        code,
+        client_id: process.env.DISCORD_CLIENT_ID,
+        client_secret: process.env.DISCORD_CLIENT_SECRET,
+        code: code,
         grant_type: 'authorization_code',
-        redirect_uri: DISCORD_REDIRECT_URI
+        redirect_uri: 'https://eluun.link/.netlify/functions/discord-callback'
       })
     });
 
     const tokenData = await tokenResponse.json();
-    
+
     // Ajouter le rôle
     await fetch(`https://discord.com/api/guilds/${process.env.DISCORD_GUILD_ID}/members/${tokenData.user.id}/roles/${process.env.DISCORD_ROLE_ID}`, {
       method: 'PUT',
@@ -57,11 +51,12 @@ exports.handler = async function(event, context) {
     });
 
     return {
-      statusCode: 200,
-      body: JSON.stringify({ success: true })
+      statusCode: 302,
+      headers: {
+        Location: 'https://eluun.link'
+      }
     };
   } catch (error) {
-    console.error('Error:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message })
