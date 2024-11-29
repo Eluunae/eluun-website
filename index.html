@@ -84,44 +84,13 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Vérifier si on a un code dans l'URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const code = urlParams.get('code');
-  
-  if (code) {
-    // Supprimer les messages de la console
-    console.clear();
-    
-    // Appeler notre fonction callback avec le code
-    fetch('/.netlify/functions/discord-callback', {
-      method: 'POST',
-      body: JSON.stringify({ code }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        // Rediriger vers la page d'accueil sans le code
-        window.location.href = '/';
-      }
-    })
-    .catch(error => console.error('Error:', error));
-  }
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
   
   if (code) {
     console.log('Code reçu:', code);
     
-    // Corriger l'URL de l'endpoint
-    fetch('/.netlify/functions/process-discord', {  // Changé de discord-callback à process-discord
+    fetch('/.netlify/functions/process-discord', {  // URL corrigée
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -130,15 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(response => {
       console.log('Status:', response.status);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       return response.json();
     })
     .then(data => {
       console.log('Réponse:', data);
       if (data.success) {
-        // Attendre un peu avant la redirection
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 1000);
+        document.getElementById('thanksModal').style.display = 'flex';
       }
     })
     .catch(error => {
@@ -146,6 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+function closeModal() {
+  document.getElementById('thanksModal').style.display = 'none';
+  window.history.replaceState({}, document.title, '/');
+}
 </script>
 
                     <a href="https://www.patreon.com/eluun" target="_blank">
