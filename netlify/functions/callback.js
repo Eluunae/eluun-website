@@ -5,17 +5,14 @@ exports.handler = async (event) => {
     const code = event.queryStringParameters?.code;
     
     if (!code) {
-        console.error('No code provided');
         return {
             statusCode: 302,
-            headers: {
-                'Location': '/?error=no_code'
-            }
+            headers: { 'Location': '/?error=no_code' }
         };
     }
 
     try {
-        // Échange du code contre un token
+        // 1. Échange code contre token
         const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
             method: 'POST',
             body: new URLSearchParams({
@@ -23,8 +20,7 @@ exports.handler = async (event) => {
                 client_secret: process.env.DISCORD_CLIENT_SECRET,
                 code: code,
                 grant_type: 'authorization_code',
-                redirect_uri: 'https://eluun.link/callback',
-                scope: 'identify guilds.join'
+                redirect_uri: 'https://eluun.link/callback'
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -32,12 +28,13 @@ exports.handler = async (event) => {
         });
 
         const tokenData = await tokenResponse.json();
-        
+        console.log('Token response:', tokenData);
+
         if (tokenData.error) {
             throw new Error(tokenData.error);
         }
 
-        // Récupération des infos utilisateur
+        // 2. Récupérer infos utilisateur
         const userResponse = await fetch('https://discord.com/api/users/@me', {
             headers: {
                 Authorization: `Bearer ${tokenData.access_token}`
@@ -46,8 +43,8 @@ exports.handler = async (event) => {
 
         const userData = await userResponse.json();
 
-        // Ajouter l'utilisateur au serveur
-        await fetch(`https://discord.com/api/guilds/${process.env.GUILD_ID}/members/${userData.id}`, {
+        // 3. Ajouter au serveur avec rôle
+        const guildResponse = await fetch(`https://discord.com/api/guilds/${process.env.GUILD_ID}/members/${userData.id}`, {
             method: 'PUT',
             headers: {
                 Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
@@ -59,11 +56,15 @@ exports.handler = async (event) => {
             })
         });
 
+        if (!guildResponse.ok) {
+            throw new Error('Failed to add user to guild');
+        }
+
         return {
             statusCode: 302,
             headers: {
                 'Location': '/',
-                'Set-Cookie': `discord_user=${userData.id}; HttpOnly; Secure; Path=/`
+                'Set-Cookie': `discord_token=${tokenData.access_token}; HttpOnly; Secure; Path=/`
             }
         };
 

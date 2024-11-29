@@ -197,7 +197,6 @@ async function handleDiscordAuth() {
                 throw new Error(data.error);
             }
             
-            // Redirection vers la page principale
             window.location.href = '/';
             return;
         }
@@ -206,9 +205,19 @@ async function handleDiscordAuth() {
         const configResponse = await fetch('/.netlify/functions/getConfig');
         const config = await configResponse.json();
         
-        const url = `https://discord.com/api/oauth2/authorize?client_id=${config.clientId}&redirect_uri=${encodeURIComponent(config.redirectUri)}&response_type=code&scope=${encodeURIComponent('identify guilds.join')}`;
+        // Création de l'URL d'autorisation selon la doc Discord
+        const state = Math.random().toString(36).substring(7); // Sécurité CSRF
+        const url = new URL('https://discord.com/oauth2/authorize');
+        url.searchParams.append('response_type', 'code');
+        url.searchParams.append('client_id', config.clientId);
+        url.searchParams.append('scope', 'identify guilds.join');
+        url.searchParams.append('redirect_uri', config.redirectUri);
+        url.searchParams.append('state', state);
         
-        window.location.href = url;
+        // Stockage du state pour vérification ultérieure
+        sessionStorage.setItem('discord_state', state);
+        
+        window.location.href = url.toString();
     } catch (error) {
         console.error('Discord auth error:', error);
     }
