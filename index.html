@@ -40,11 +40,31 @@
                     </button>
 
 <script>
+  // Fonction pour obtenir les paramètres d'URL
   function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
   }
 
+  // Fonction pour gérer l'authentification Discord
+  async function handleDiscordAuth() {
+    try {
+      const response = await fetch('/.netlify/functions/getConfig');
+      if (!response.ok) throw new Error('Config fetch failed');
+      
+      const config = await response.json();
+      const clientId = config.clientId;
+      const redirectUri = encodeURIComponent(config.redirectUri);
+      const scope = 'identify guilds.join';
+      
+      const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
+      window.location.href = url;
+    } catch (error) {
+      console.error('Discord auth error:', error);
+    }
+  }
+
+  // Gestion du callback
   window.onload = async () => {
     const userId = getQueryParam('userId');
     if (userId) {
@@ -53,37 +73,15 @@
     }
   };
 
-  function loginWithDiscord() {
-    console.log('loginWithDiscord function called');
-    const clientId = 'YOUR_CLIENT_ID'; // Remplacez par votre client_id Discord
-    const redirectUri = encodeURIComponent('https://votre-site.netlify.app/callback');
-    const scope = encodeURIComponent('identify');
-    const responseType = 'code';
-
-    const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
-    console.log('Redirecting to:', url);
-    window.location.href = url;
-  }
-
+  // Fonction pour rejoindre Discord
   function joinDiscord(userId) {
-    console.log('joinDiscord function called');
-    console.log('User ID:', userId);
-
-    const url = `/.netlify/functions/addRole?userId=${userId}`;
-    console.log('Fetch URL:', url);
-
-    fetch(url)
-      .then(response => {
-        console.log('Fetch response received');
-        return response.text();
-      })
+    fetch(`/.netlify/functions/addRole?userId=${userId}`)
+      .then(response => response.text())
       .then(data => {
-        console.log('Response data:', data);
+        console.log('Response:', data);
         alert(data);
       })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      .catch(error => console.error('Error:', error));
   }
 </script>
 </body>
