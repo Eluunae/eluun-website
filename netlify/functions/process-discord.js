@@ -11,7 +11,7 @@ exports.handler = async function(event) {
         client_secret: process.env.DISCORD_CLIENT_SECRET,
         code: code,
         grant_type: 'authorization_code',
-        redirect_uri: 'https://eluun.link'
+        redirect_uri: 'https://eluun.link/' // Noter le / à la fin
       }),
       {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
