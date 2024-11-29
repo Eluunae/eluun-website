@@ -2,14 +2,14 @@
   functions = "netlify/functions"
 
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from = "/callback"
+  to = "/.netlify/functions/callback"
   status = 200
   force = true
 
 [[redirects]]
-  from = "/callback"
-  to = "/.netlify/functions/callback"
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
   force = true
 
@@ -17,3 +17,7 @@
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
+
+[functions]
+  external_node_modules = ["node-fetch"]
