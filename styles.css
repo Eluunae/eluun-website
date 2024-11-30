@@ -163,7 +163,7 @@ h3.link-text {
 /* Deuxième colonne alignée à gauche */
 .column:nth-child(2) {
     align-items: flex-start; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
-    padding-bottom: 300px;
+    padding-bottom: 100px;
 }
   
   /* Boutons */
