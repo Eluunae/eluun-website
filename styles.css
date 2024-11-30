@@ -34,7 +34,7 @@ body {
 
 /* Style spécifique pour le texte du paragraphe */
 .content-text {
-    font-size: 10px; /* Taille du texte */
+    font-size: 12px; /* Taille du texte */
     line-height: 1.6;   /* Interligne pour rendre le texte plus aéré */
     color: #ccc; /* Couleur du texte */
     font-family: Arial, sans-serif; /* Police */
