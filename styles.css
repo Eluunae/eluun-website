@@ -45,7 +45,7 @@ body {
 .form-container {
     margin: 20px;
     padding: 20px;
-    background-color: #1e1e1e;
+    background-color: #161616;
     border-radius: 10px;
     width: 80%;
     max-width: 400px;
@@ -74,7 +74,7 @@ button {
     padding: 10px;
     margin: 20px 0;
     border: none;
-    background-color: #444;
+    background-color: #2f2e2e;
     color: white;
     cursor: pointer;
     border-radius: 5px;
@@ -168,13 +168,13 @@ h3.link-text {
   
   /* Boutons */
   button {
-    background-color: #333; /* Couleur du bouton */
+    background-color: #161616; /* Couleur du bouton */
     color: #fff; /* Couleur du texte */
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 15px 20px;
+    border-radius: 7px;
     text-align: center;
-    font-size: 16px;
+    font-size: 17px;
     cursor: pointer;
     width: fit-content; /* S'adapte au texte */
     transition: background-color 0.3s ease;
@@ -183,7 +183,7 @@ h3.link-text {
   }
   
   button:hover {
-    background-color: #555; /* Couleur du bouton au survol */
+    background-color: #2b2b2b; /* Couleur du bouton au survol */
   }
   
   /* Ajustement pour les petits écrans (responsive) */
