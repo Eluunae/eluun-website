@@ -5,7 +5,8 @@ a {
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #0d0d0d;
+    background: linear-gradient(45deg, #000000, #1e1e1e);
+    min-height: 100vh;
     color: #ffffff;
     margin: 0;
     padding: 0;
@@ -162,6 +163,7 @@ h3.link-text {
 /* Deuxième colonne alignée à gauche */
 .column:nth-child(2) {
     align-items: flex-start; /* Aligner horizontalement les boutons de la deuxième colonne à gauche */
+    padding-bottom: 300px;
 }
   
   /* Boutons */
