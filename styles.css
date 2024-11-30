@@ -176,7 +176,7 @@ h3.link-text {
     text-align: center;
     font-size: 17px;
     cursor: pointer;
-    width: fit-content; /* S'adapte au texte */
+    width: 300px; /*fit-content;  S'adapte au texte */
     transition: background-color 0.3s ease;
     margin: 0; /* Supprime toute marge inutile */
     box-sizing: border-box; /* Inclure padding dans la largeur et la hauteur */
@@ -204,7 +204,7 @@ h3.link-text {
     }
   
     button {
-      width: auto; /* Les boutons restent adaptés à leur contenu */
+        width: 300px; /* Les boutons restent adaptés à leur contenu */
     }
   }
   
